@@ -28,7 +28,7 @@
                 android:id="@+id/movie_title"
                 android:layout_margin="5dp"
                 android:textSize="15sp"
-                android:text="Title : "/>
+                android:text="Title: "/>
 
             <TextView
                 android:layout_below="@+id/movie_title"
