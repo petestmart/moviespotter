@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieSpotter</string>
+    <string name="api_key">97585f2197f5b57abdcdc9c1b1994663</string>
 </resources>
