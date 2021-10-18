@@ -6,29 +6,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.petestmart.moviespotter.MainActivity">
-    <TextView
-        android:layout_centerHorizontal="true"
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButtonGrp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Popular Movies"
-        android:layout_margin="20dp"
-        android:id="@+id/title"
-        android:textSize="20sp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:singleSelection="true">
+
+        <Button
+            android:id="@+id/popularBtn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Popular Movies"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/searchBtn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Search Movies"
+            android:textSize="15sp" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/title"
-        android:id="@+id/recyclerView"/>
+        android:layout_below="@+id/progress_bar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
+        android:layout_below="@+id/toggleButtonGrp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:scaleY="4"
-        android:indeterminateTint="#FFBB86FC"
+        android:indeterminate="true"
         android:indeterminateBehavior="repeat"
-        android:indeterminate="true" />
+        android:indeterminateTint="#FFBB86FC"
+        android:scaleY="4" />
 </RelativeLayout>
