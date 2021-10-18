@@ -31,7 +31,7 @@ class MoviesViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
     private val rating:TextView = itemView.findViewById(R.id.movie_rating)
 
     fun bind(movie: Result) {
-        Glide.with(itemView.context).load("http://image.tmdb.org/t/p/w500${movie.poster_path}").placeholder(R.drawable.space_dog_laika1).into(photo)
+        Glide.with(itemView.context).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").placeholder(R.drawable.space_dog_laika1).into(photo)
         title.text = "Title: " + movie.title
         overview.text = movie.overview
         rating.text = "User Score: " + movie.vote_average.toString()
