@@ -2,21 +2,26 @@ package com.petestmart.moviespotter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.example.moviespotter.R
+import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            MovieSpotterTheme() {
+                setContentView(R.layout.activity_main)
+            }
+        }
 
         val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
         val call = request.getMovies(getString(R.string.api_key))
@@ -36,5 +41,9 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun showToast(str: String) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
     }
 }
