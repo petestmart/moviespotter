@@ -5,7 +5,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.example.moviespotter.R
+import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.FileReader.readStringFromFile
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse

@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviespotter.R
+import com.petestmart.moviespotter.R
 
 //class MoviesAdapter(val movies: List<Result>): RecyclerView.Adapter<MoviesViewHolder>() {
 //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
