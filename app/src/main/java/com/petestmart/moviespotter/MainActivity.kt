@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.example.moviespotter.R
+import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip

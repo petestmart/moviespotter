@@ -5,7 +5,7 @@ import android.provider.Settings.Global.getString
 import android.view.View
 import android.widget.Toast
 import androidx.activity.compose.setContent
-import com.example.moviespotter.R
+import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
