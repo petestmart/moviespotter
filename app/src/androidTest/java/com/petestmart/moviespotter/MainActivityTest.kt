@@ -1,13 +1,11 @@
 package com.petestmart.moviespotter
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.moviespotter.R
-import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.petestmart.moviespotter.FileReader.readStringFromFile
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -31,14 +29,16 @@ class MainActivityTest {
     @Before
     fun setup() {
         mockWebServer.start(8080)
-        IdlingRegistry.getInstance().register(
-            ServiceBuilder.getClient()?.let {
-                OkHttp3IdlingResource.create(
-                    "okhttp",
-                    it
-                )
-            }
-        )
+        IdlingTestResource.registerIdlingResource(ServiceBuilder.getClient())
+
+//        IdlingRegistry.getInstance().register(
+//            ServiceBuilder.getClient()?.let {
+//                OkHttp3IdlingResource.create(
+//                    "okhttp",
+//                    it
+//                )
+//            }
+//        )
     }
 
     @Test
