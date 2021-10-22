@@ -18,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
@@ -62,10 +63,36 @@ open class MainActivity : AppCompatActivity() {
 
 @Composable
 fun MovieList(results: List<Result>) {
-    Text(text = "Popular Movies")
-    LazyColumn {
-        items(results) { result ->
-            MovieCard(result)
+    Column(
+    ) {
+        @Composable
+        fun ShapeableView() {
+            Box(
+                modifier = Modifier
+                    .size(150.dp)
+            )
+        }
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            elevation = 2.dp,
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text(
+                    text = "Popular Movies",
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(all = 4.dp)
+                )
+            }
+        }
+        LazyColumn {
+            items(results) { result ->
+                MovieCard(result)
+            }
         }
     }
 }
@@ -77,7 +104,8 @@ fun MovieCard(
     val padding = 16.dp
     Card(
         Modifier.padding(padding),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        elevation = 2.dp,
     )
     {
         var isExpanded by remember { mutableStateOf(false) }
@@ -99,11 +127,10 @@ fun MovieCard(
                     .size(250.dp)
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Text(text = mov.title)
 
-            Spacer(modifier = Modifier.width(8.dp))
-
+            Spacer(modifier = Modifier.height(8.dp))
             Column(
                 modifier = Modifier
                     .padding(all = 8.dp)
@@ -118,16 +145,19 @@ fun MovieCard(
                         .padding(1.dp)
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxWidth().padding(all = 4.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(all = 4.dp),
                     ) {
-                        Text(text = if (isExpanded)
+                        Text(
+                            text = if (isExpanded)
                                 mov.overview + "\n" +
-                                "Release Date: " + mov.release_date + "\n" +
-                                "User Score: " + mov.vote_average.toString()
-                                else mov.overview.substring(0,50) + "...",
+                                        "Release Date: " + mov.release_date + "\n" +
+                                        "User Score: " + mov.vote_average.toString()
+                            else mov.overview.substring(0, 50) + "...",
                             maxLines = if (isExpanded) Int.MAX_VALUE else 1,
-                            style = MaterialTheme.typography.body2)
-                        Spacer(modifier = Modifier.width(8.dp))
+                            style = MaterialTheme.typography.body2
+                        )
                     }
                 }
             }
