@@ -6,7 +6,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.example.moviespotter.R
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.petestmart.moviespotter.FileReader.readStringFromFile
 import okhttp3.mockwebserver.Dispatcher
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit
 class MainActivityTest {
 
     @get:Rule
-    val activityRule = ActivityTestRule(MainActivity::class.java, true, false)
+    val activityRule = ActivityTestRule(MovieSpotterTestApp::class.java, true, false)
 
     private val mockWebServer = MockWebServer()
 
@@ -49,7 +48,6 @@ class MainActivityTest {
                     .setResponseCode(200)
                     .setBody(readStringFromFile("success_response.json"))
             }
-
         }
         activityRule.launchActivity(null)
 
