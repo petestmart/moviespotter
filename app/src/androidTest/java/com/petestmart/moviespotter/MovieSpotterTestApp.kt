@@ -1,39 +1,55 @@
 package com.petestmart.moviespotter
 
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.view.View
 import android.widget.Toast
-import androidx.activity.compose.setContent
-import com.petestmart.moviespotter.R
-import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-import android.app.Application
+open class MovieSpotterTestApp : MainActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-open class MovieSpotterTestApp : Application() {
+        var url = "http://127.0.0.1:8080"
 
-    var url = "http://127.0.0.1:8080"
+        fun getBaseUrl(): String {
+            return url
+        }
 
-    private fun getBaseUrl(): String {
-        return url
+        val retrofit = Retrofit.Builder()
+            .baseUrl(getBaseUrl())
+            .client(ServiceBuilder.getClient())
+            .build()
+
+        fun<T> buildService(service: Class<T>): T{
+            return retrofit.create(service)
+        }
+
+        val request = buildService(TmdbEndpoints::class.java)
+        val call = request.getMovies(getString(R.string.api_key))
+
+        call.enqueue(object : Callback<PopularMovies> {
+            override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
+                if (response.isSuccessful) {
+                    progress_bar.visibility = View.GONE
+                    recyclerView.apply {
+                        setHasFixedSize(true)
+                        layoutManager = LinearLayoutManager(this@MovieSpotterTestApp)
+                        adapter = MoviesAdapter(response.body()!!.results)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
+                Toast.makeText(this@MovieSpotterTestApp, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+        fun showToast(str: String) {
+            Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+        }
     }
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(getBaseUrl())
-        .client(ServiceBuilder.getClient())
-        .build()
-
-    private fun<T> buildService(service: Class<T>): T{
-        return retrofit.create(service)
-    }
-
-    val request = buildService(TmdbEndpoints::class.java)
-    val call = request.getMovies(getString(R.string.api_key))
-
 }
