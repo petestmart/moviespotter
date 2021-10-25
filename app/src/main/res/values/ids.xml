@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <item name="compose_view" type="id" />
-        <item name="movie_photo" type="id" />
-        <item name="movie_title" type="id" />
-        <item name="movie_overview" type="id" />
-        <item name="movie_rating" type="id" />
+    <item name="compose_view" type="id" />
+    <item name="movie_photo" type="id" />
+    <item name="movie_title" type="id" />
+    <item name="movie_overview" type="id" />
+    <item name="movie_rating" type="id" />
+    <item name="popular_text_compose" type="id" />
 </resources>
