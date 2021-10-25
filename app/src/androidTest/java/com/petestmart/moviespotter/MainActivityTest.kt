@@ -1,5 +1,6 @@
 package com.petestmart.moviespotter
 
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -42,6 +43,7 @@ class MainActivityTest {
 
     @Test
     fun testSuccessfulResponse() {
+        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
         mockWebServer.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
                 return MockResponse()
@@ -49,8 +51,8 @@ class MainActivityTest {
                     .setBody(readStringFromFile("success_response.json"))
             }
         }
-        activityRule.launchActivity(null)
-
+        onView(withId(R.id.view_container))
+            .check(matches(isDisplayed()))
         onView(withId(R.id.progress_bar))
             .check(matches(withEffectiveVisibility(Visibility.GONE)))
         onView(withId(R.id.recyclerView))
@@ -59,13 +61,12 @@ class MainActivityTest {
 
     @Test
     fun testFailedResponse() {
+        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
         mockWebServer.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
                 return MockResponse().throttleBody(1024, 5, TimeUnit.SECONDS)
             }
         }
-
-        activityRule.launchActivity(null)
 
         onView(withId(R.id.progress_bar))
             .check(matches(withEffectiveVisibility(Visibility.GONE)))
