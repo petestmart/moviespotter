@@ -13,7 +13,7 @@ object ServiceBuilder {
 
     private var client: OkHttpClient? = null
 
-    fun getClient(): OkHttpClient? {
+    fun getClient(): OkHttpClient {
         return if (client == null) {
             val client = OkHttpClient.Builder()
                 .readTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)

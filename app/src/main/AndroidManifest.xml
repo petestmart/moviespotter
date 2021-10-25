@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieSpotter">
-
+        <activity android:name=".MovieSpotterTestApp"></activity>
         <activity
             android:name="com.petestmart.moviespotter.MainActivity"
             android:exported="true">
