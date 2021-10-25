@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.compose.rememberImagePainter
 import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,11 +44,16 @@ open class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
                 if (response.isSuccessful) {
                     progress_bar.visibility = View.GONE
-                    setContent {
-                        MovieSpotterTheme() {
-                            MovieList(response.body()!!.results)
-                        }
+                    recyclerView.apply {
+                        setHasFixedSize(true)
+                        layoutManager = LinearLayoutManager(this@MainActivity)
+                        adapter = MoviesAdapter(response.body()!!.results)
                     }
+//                    setContent {
+//                        MovieSpotterTheme() {
+//                            MovieList(response.body()!!.results)
+//                        }
+//                    }
                 }
             }
 
