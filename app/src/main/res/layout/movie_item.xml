@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/movie_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/progress_bar">
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compose_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    android:layout_below="@+id/progress_bar"
+    android:orientation="vertical">
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -25,30 +24,30 @@
                 android:contentDescription="Movie Image" />
 
             <TextView
+                android:id="@+id/movie_title"
                 android:layout_below="@+id/movie_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/movie_title"
                 android:layout_margin="5dp"
-                android:textSize="15sp"
-                android:text="Title: "/>
+                android:text="Title: "
+                android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/movie_overview"
                 android:layout_below="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/movie_overview"
                 android:layout_margin="5dp"
-                android:text="OverView : "/>
+                android:text="OverView : " />
 
             <TextView
-                android:layout_below="@+id/movie_overview"
+                android:id="@+id/movie_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/movie_rating"
-                android:textSize="15sp"
+                android:layout_below="@+id/movie_overview"
                 android:layout_margin="5dp"
-                android:text="Rating : "/>
+                android:text="Rating : "
+                android:textSize="15sp" />
 
 
         </RelativeLayout>
