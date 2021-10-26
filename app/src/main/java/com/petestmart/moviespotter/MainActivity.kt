@@ -36,7 +36,7 @@ open class MainActivity : AppCompatActivity() {
                     recyclerView.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = MoviesAdapter(response.body()!!.results)
+                        adapter = MoviesAdapter(response.body()!!.results as List<Result>)
                     }
 //                    setContent {
 //                        MovieSpotterTheme() {
