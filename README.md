@@ -13,6 +13,7 @@ If you're having trouble downloading you may have Blocked Third-Party Cookies: [
 * Java
 * REST API from [The Movie Database](https://developers.themoviedb.org/3/)
 * Retrofit2
+* OkHttp3
 * AndroidX JUnit
 * Espresso
 * Jetpack Compose Libraries
