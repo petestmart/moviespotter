@@ -9,6 +9,8 @@
         <entry key="../../../../../layout/compose-model-1634607791664.xml" value="0.515" />
         <entry key="../../../../../layout/custom_preview.xml" value="0.17743589743589744" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14629629629629629" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/compose_view_fragment.xml" value="0.13385416666666666" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.165" />
