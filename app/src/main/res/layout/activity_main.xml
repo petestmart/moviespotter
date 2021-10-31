@@ -11,7 +11,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/popular_text_compose"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
 
     <!--    <com.google.android.material.button.MaterialButtonToggleGroup-->
