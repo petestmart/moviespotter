@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/view_container"
+    android:background="#D3D3D3"
     tools:context="com.petestmart.moviespotter.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
