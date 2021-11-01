@@ -36,7 +36,6 @@ class PopularMoviesTextComposeFragment : Fragment() {
         view.findViewById<ComposeView>(R.id.compose_view).setContent {
             MovieSpotterTheme() {
                 Card(
-                    backgroundColor = Color.Green,
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
