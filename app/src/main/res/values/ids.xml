@@ -6,4 +6,5 @@
     <item name="movie_overview" type="id" />
     <item name="movie_rating" type="id" />
     <item name="popular_text_compose" type="id" />
+    <item name="card_view" type="id" />
 </resources>
