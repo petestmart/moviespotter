@@ -51,13 +51,14 @@
 <!--    <com.google.android.material.textfield.TextInputLayout-->
 <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
 <!--        android:id="@+id/search_bar"-->
-<!--        android:layout_below="@+id/toggleButtonGrp"-->
+<!--        android:layout_below="@+id/progress_bar"-->
+<!--        android:visibility="gone"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:hint="Movie Title"-->
 <!--        app:startIconDrawable="@drawable/ic_baseline_search_24"-->
 <!--        app:endIconMode="clear_text"-->
-<!--        >-->
+<!--        />-->
 
 <!--        <com.google.android.material.textfield.TextInputEditText-->
 <!--            android:id="@+id/search_text"-->
