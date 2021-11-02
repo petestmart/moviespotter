@@ -9,6 +9,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.progress_bar
+import kotlinx.android.synthetic.main.search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +20,7 @@ open class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        setContent {
 //            MovieSpotterTheme() {
-                setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 //            }
 //        }
 
@@ -50,6 +52,30 @@ open class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+
+    }
+
+    fun viewSelection(selectedOption: String) {
+        if (selectedOption == "Popular Movies") {
+//            recyclerView.visibility = View.VISIBLE
+//            searchBar.visibility = View.INVISIBLE
+            Toast.makeText(
+                this,
+                "You just clicked Popular Movies",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
+        if (selectedOption == "Search Movies") {
+//            searchBar.visibility = View.VISIBLE
+//            recyclerView.visibility = View.INVISIBLE
+            Toast.makeText(
+                this,
+                "You just clicked Search Movies",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
     }
 }
 
