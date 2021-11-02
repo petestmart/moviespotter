@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
@@ -91,8 +93,24 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                 }
                             }
                         }
+                        if (selectedOption == "Popular Movies") {
+                            Toast.makeText(
+                                context,
+                                "You just clicked Popular Movies",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+                        if (selectedOption == "Search Movies") {
+                            Toast.makeText(
+                                context,
+                                "You just clicked Search Movies",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
                     }
-                    Surface() {
+                    Surface {
                         MaterialButtonToggleGroup()
                     }
                 }
