@@ -101,7 +101,8 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                     value = text,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(all = 3.dp),
+                                        .padding(horizontal = 3.dp)
+                                        .padding(bottom = 5.dp),
                                     onValueChange = { text = it },
                                     label = { Text("Enter Movie Info") }
                                 )
