@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/search_view_container"
-    android:visibility="gone"
     android:background="#D3D3D3"
     tools:context="com.petestmart.moviespotter.MainActivity">
 
@@ -51,7 +50,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/search_bar"
+            android:id="@+id/searchBar"
             android:layout_below="@+id/progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
