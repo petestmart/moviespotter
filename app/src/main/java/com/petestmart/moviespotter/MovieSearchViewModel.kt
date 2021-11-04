@@ -9,5 +9,9 @@ class MovieSearchViewModel : ViewModel() {
     fun setSearchTerm(query: String?){
         searchTerm.value = query
     }
+
+    fun setPopularMovies(){
+
+    }
 }
 

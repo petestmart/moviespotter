@@ -1,6 +1,5 @@
 package com.petestmart.moviespotter
 
-import android.content.ClipData
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +55,9 @@ class PopularMoviesTextComposeFragment : Fragment() {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             var isExpanded by remember { mutableStateOf(false) }
-
+                            val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
+                            val apiKey = getString(R.string.api_key)
+                            val defaultCall = request.getPopularMovies(apiKey)
                             Row(
                                 horizontalArrangement = Arrangement.SpaceEvenly,
                                 modifier = Modifier.fillMaxWidth(),
@@ -96,6 +97,9 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                     }
                                 }
                             }
+                            if (selectedOption == "Popular Movies") {
+                                (activity as MainActivity?)?.defaultSelection(defaultCall)
+                            }
                             if (selectedOption == "Search Movies") {
                                 isExpanded = true
                             } else {
@@ -115,14 +119,19 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                         onValueChange = { query = it },
                                         label = { Text("Enter Movie Info") }
                                     )
-                                    OutlinedButton(
-                                        onClick = {
-                                            viewModel.setSearchTerm(query)
-                                            println("button clicked: " + query)
-                                        },
-
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        OutlinedButton(
+                                            onClick = {
+                                                viewModel.setSearchTerm(query)
+                                            },
+                                            modifier = Modifier
+                                                .padding(horizontal = 3.dp)
+                                                .padding(bottom = 5.dp)
                                         ) {
-                                        Text("Search")
+                                            Text("Search")
+                                        }
                                     }
                                 }
                             }
