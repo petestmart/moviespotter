@@ -32,8 +32,8 @@ open class MovieSpotterTestApp : MainActivity() {
         val request = buildService(TmdbEndpoints::class.java)
         val call = request.getMovies(getString(R.string.api_key))
 
-        call.enqueue(object : Callback<PopularMovies> {
-            override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
+        call.enqueue(object : Callback<MoviesData> {
+            override fun onResponse(call: Call<MoviesData>, response: Response<MoviesData>) {
                 if (response.isSuccessful) {
                     progress_bar.visibility = View.GONE
                     recyclerView.apply {
@@ -44,7 +44,7 @@ open class MovieSpotterTestApp : MainActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
+            override fun onFailure(call: Call<MoviesData>, t: Throwable) {
                 Toast.makeText(this@MovieSpotterTestApp, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })

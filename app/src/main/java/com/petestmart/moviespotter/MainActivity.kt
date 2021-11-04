@@ -3,19 +3,21 @@ package com.petestmart.moviespotter
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.progress_bar
 import kotlinx.android.synthetic.main.search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlinx.android.synthetic.main.activity_main.progress_bar
 
 open class MainActivity : AppCompatActivity() {
+    private val viewModel: MovieSearchViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContent {
@@ -29,10 +31,21 @@ open class MainActivity : AppCompatActivity() {
             .commit()
 
         val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
-        val call = request.getMovies(getString(R.string.api_key))
+        val apiKey = getString(R.string.api_key)
+        var searchString = ""
+        viewModel.searchTerm.observe(this) {
+            searchString = it;
+            callMovies(call = request.getSearchMovies(apiKey, searchString))
+        }
 
-        call.enqueue(object : Callback<PopularMovies> {
-            override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
+        var call = request.getPopularMovies(apiKey)
+
+        callMovies(call)
+    }
+
+    fun callMovies(call: Call<MoviesData>) {
+        call.enqueue(object : Callback<MoviesData> {
+            override fun onResponse(call: Call<MoviesData>, response: Response<MoviesData>) {
                 if (response.isSuccessful) {
                     progress_bar.visibility = View.GONE
                     recyclerView.apply {
@@ -48,34 +61,10 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
+            override fun onFailure(call: Call<MoviesData>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
-
-    }
-
-    fun viewSelection(selectedOption: String) {
-        if (selectedOption == "Popular Movies") {
-//            recyclerView.visibility = View.VISIBLE
-//            searchBar.visibility = View.INVISIBLE
-            Toast.makeText(
-                this,
-                "You just clicked Popular Movies",
-                Toast.LENGTH_SHORT
-            )
-                .show()
-        }
-        if (selectedOption == "Search Movies") {
-//            searchBar.visibility = View.VISIBLE
-//            recyclerView.visibility = View.INVISIBLE
-            Toast.makeText(
-                this,
-                "You just clicked Search Movies",
-                Toast.LENGTH_SHORT
-            )
-                .show()
-        }
     }
 }
 
