@@ -1,5 +1,6 @@
 package com.petestmart.moviespotter
 
+import android.content.ClipData
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +12,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.petestmart.moviespotter.ui.theme.MovieSpotterTheme
 
 
 class PopularMoviesTextComposeFragment : Fragment() {
+
+    private val viewModel: MovieSearchViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +52,9 @@ class PopularMoviesTextComposeFragment : Fragment() {
                         val onSelectionChange = { text: String ->
                             selectedOption = text
                         }
-                        Column() {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             var isExpanded by remember { mutableStateOf(false) }
 
                             Row(
@@ -95,20 +102,31 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                 isExpanded = false
                             }
                             if (isExpanded) {
-                                var text by remember { mutableStateOf("") }
-
-                                OutlinedTextField(
-                                    value = text,
-                                    modifier = Modifier
+                                var query by remember { mutableStateOf("") }
+                                Row(
+                                    Modifier
                                         .fillMaxWidth()
-                                        .padding(horizontal = 3.dp)
-                                        .padding(bottom = 5.dp),
-                                    onValueChange = { text = it },
-                                    label = { Text("Enter Movie Info") }
-                                )
+                                ) {
+                                    OutlinedTextField(
+                                        value = query,
+                                        modifier = Modifier
+                                            .padding(horizontal = 3.dp)
+                                            .padding(bottom = 5.dp),
+                                        onValueChange = { query = it },
+                                        label = { Text("Enter Movie Info") }
+                                    )
+                                    OutlinedButton(
+                                        onClick = {
+                                            viewModel.setSearchTerm(query)
+                                            println("button clicked: " + query)
+                                        },
+
+                                        ) {
+                                        Text("Search")
+                                    }
+                                }
                             }
                         }
-//                        (activity as MainActivity?)?.viewSelection(selectedOption)
                     }
                     Surface {
                         MaterialButtonToggleGroup()
