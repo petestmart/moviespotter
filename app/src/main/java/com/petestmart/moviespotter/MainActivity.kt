@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.progress_bar
 
 open class MainActivity : AppCompatActivity() {
     private val viewModel: MovieSearchViewModel by viewModels()
+    var searchString = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContent {
@@ -29,10 +30,9 @@ open class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.popular_text_compose, PopularMoviesTextComposeFragment())
             .commit()
-
         val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
         val apiKey = getString(R.string.api_key)
-        var searchString = ""
+
         viewModel.searchTerm.observe(this) {
             searchString = it;
             callMovies(call = request.getSearchMovies(apiKey, searchString))
@@ -65,6 +65,10 @@ open class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    fun defaultSelection(defaultCall: Call<MoviesData>) {
+        callMovies(defaultCall)
     }
 }
 
