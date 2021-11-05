@@ -14,6 +14,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -48,6 +50,7 @@ class PopularMoviesTextComposeFragment : Fragment() {
 
                 @Composable
                 fun SearchIcon() {
+                    Icon(Icons.Filled.Search, "search")
                 }
 
                 @Composable
@@ -138,22 +141,15 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                         viewModel.setSearchTerm(query);
                                         focusManager.clearFocus()
                                     }),
-                                    trailingIcon = { SearchIcon() }
+                                    leadingIcon = { SearchIcon() },
+                                    trailingIcon = {Icon(Icons.Filled.Clear,
+                                        contentDescription = "clear text",
+                                        modifier = Modifier
+                                            .clickable {
+                                                query = ""
+                                            }
+                                    )}
                                 )
-//                                Row(
-//                                    verticalAlignment = Alignment.CenterVertically
-//                                ) {
-//                                    OutlinedButton(
-//                                        onClick = {
-//                                            viewModel.setSearchTerm(query)
-//                                        },
-//                                        modifier = Modifier
-//                                            .padding(horizontal = 3.dp)
-//                                            .padding(bottom = 5.dp)
-//                                    ) {
-//                                        Text("Search")
-//                                    }
-//                                }
                             }
                         }
                     }
