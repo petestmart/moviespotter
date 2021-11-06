@@ -90,7 +90,7 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                         modifier = Modifier
                                             .clip(
                                                 shape = RoundedCornerShape(
-                                                    size = 12.dp,
+                                                    size = 16.dp,
                                                 ),
                                             )
                                             .clickable {
@@ -128,8 +128,8 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                     value = query,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(horizontal = 3.dp)
-                                        .padding(bottom = 5.dp),
+                                        .padding(horizontal = 8.dp)
+                                        .padding(bottom = 8.dp),
                                     onValueChange = { query = it },
                                     label = { Text("Enter Movie Info") },
                                     singleLine = true,
