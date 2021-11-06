@@ -48,6 +48,11 @@ open class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MoviesData>, response: Response<MoviesData>) {
                 if (response.isSuccessful) {
                     progress_bar.visibility = View.GONE
+                    if (response.body()!!.results.size == 0 ) {
+                        noResults.visibility = View.VISIBLE
+                    } else {
+                        noResults.visibility = View.INVISIBLE
+                    }
                     recyclerView.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this@MainActivity)
