@@ -90,7 +90,7 @@ class PopularMoviesTextComposeFragment : Fragment() {
                                         modifier = Modifier
                                             .clip(
                                                 shape = RoundedCornerShape(
-                                                    size = 16.dp,
+                                                    size = 18.dp,
                                                 ),
                                             )
                                             .clickable {
