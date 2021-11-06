@@ -31,26 +31,34 @@
 
             <TextView
                 android:id="@+id/movie_title"
+                android:layout_below="@+id/movie_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/movie_photo"
                 android:layout_margin="5dp"
                 android:text="Title: "
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/movie_overview"
+                android:layout_below="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/movie_title"
                 android:layout_margin="5dp"
-                android:text="OverView : " />
+                android:text="Release Date: " />
+
+            <TextView
+                android:id="@+id/release_date"
+                android:layout_below="@+id/movie_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="OverView: " />
 
             <TextView
                 android:id="@+id/movie_rating"
+                android:layout_below="@+id/release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/movie_overview"
                 android:layout_margin="5dp"
                 android:text="Rating : "
                 android:textSize="15sp" />

@@ -30,12 +30,13 @@ class MoviesViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
     private val title:TextView = itemView.findViewById(R.id.movie_title)
     private val overview:TextView = itemView.findViewById(R.id.movie_overview)
     private val rating:TextView = itemView.findViewById(R.id.movie_rating)
-
+    private val releaseDate:TextView = itemView.findViewById(R.id.release_date)
 
     fun bind(movie: Result) {
         Glide.with(itemView.context).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").placeholder(R.drawable.space_dog_laika1).into(photo)
         title.text = "Title: " + movie.title
         overview.text = movie.overview
+        releaseDate.text = "Release Date: " + movie. release_date
         rating.text = "User Score: " + movie.vote_average.toString()
     }
 }
