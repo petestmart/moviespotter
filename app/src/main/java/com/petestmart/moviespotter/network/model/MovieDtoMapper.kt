@@ -3,7 +3,7 @@ package com.petestmart.moviespotter.network.model
 import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.domain.util.DomainMapper
 
-class MovieNetworkMapper : DomainMapper<MovieDto, Movie> {
+class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
 
     override fun mapToDomainModel(model: MovieDto): Movie {
         return Movie(
@@ -28,11 +28,11 @@ class MovieNetworkMapper : DomainMapper<MovieDto, Movie> {
     }
 
     // For future use
-    fun fromEntityList(initial: List<MovieDto>): List<Movie>{
+    fun toDomainList(initial: List<MovieDto>): List<Movie>{
         return initial.map { mapToDomainModel(it) }
     }
 
-    fun toEntityList(initial: List<Movie>): List<MovieDto>{
+    fun fromDomainList(initial: List<Movie>): List<MovieDto>{
         return initial.map { mapFromDomainModel(it) }
     }
 }

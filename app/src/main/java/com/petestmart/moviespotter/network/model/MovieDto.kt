@@ -2,7 +2,7 @@ package com.petestmart.moviespotter.network.model
 
 import com.google.gson.annotations.SerializedName
 
-class MovieNetworkEntity(
+data class MovieDto(
 
     @SerializedName("id")
     var id: Int? = null,
