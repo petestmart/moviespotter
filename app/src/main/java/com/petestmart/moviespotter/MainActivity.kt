@@ -1,6 +1,7 @@
 package com.petestmart.moviespotter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -9,12 +10,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.GsonBuilder
+import com.petestmart.moviespotter.network.MovieService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlinx.android.synthetic.main.activity_main.progress_bar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 open class MainActivity : AppCompatActivity() {
     private val viewModel: MovieSearchViewModel by viewModels()
