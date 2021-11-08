@@ -7,7 +7,6 @@ public class Result {
     public String release_date;
     public String title;
     public double vote_average;
-    public int vote_count;
 
     public Result(
             int id,
@@ -15,14 +14,12 @@ public class Result {
             String poster_path,
             String release_date,
             String title,
-            Double vote_average,
-            int vote_count) {
+            Double vote_average) {
         this.id = id;
         this.overview = overview;
         this.poster_path = poster_path;
         this.release_date = release_date;
         this.title = title;
         this.vote_average = vote_average;
-        this.vote_count = vote_count;
     }
 }
