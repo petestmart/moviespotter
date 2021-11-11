@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.petestmart.moviespotter.FileReader.readStringFromFile
+import com.petestmart.moviespotter.presentation.MainActivity
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

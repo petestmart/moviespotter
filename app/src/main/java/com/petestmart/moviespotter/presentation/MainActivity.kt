@@ -1,7 +1,6 @@
-package com.petestmart.moviespotter
+package com.petestmart.moviespotter.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -10,23 +9,27 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.GsonBuilder
-import com.petestmart.moviespotter.network.MovieService
+import com.petestmart.moviespotter.*
+import com.petestmart.moviespotter.R
+import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlinx.android.synthetic.main.activity_main.progress_bar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
+@AndroidEntryPoint
 open class MainActivity : AppCompatActivity() {
-    private val viewModel: MovieSearchViewModel by viewModels()
-    var searchString = ""
+
+    @Inject
+    lateinit var app: BaseApplication
+
+//    private val viewModel: MovieSearchViewModel by viewModels()
+    private var searchString = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContent {
@@ -35,54 +38,59 @@ open class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.popular_text_compose, PopularMoviesTextComposeFragment())
+//            .commit()
+
         supportFragmentManager.beginTransaction()
-            .replace(R.id.popular_text_compose, PopularMoviesTextComposeFragment())
+            .replace(R.id.main_container, MovieListFragment())
             .commit()
-        val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
-        val apiKey = getString(R.string.api_key)
 
-        viewModel.searchTerm.observe(this) {
-            searchString = it;
-            callMovies(call = request.getSearchMovies(apiKey, searchString))
-        }
+//        val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
+//        val apiKey = getString(R.string.api_key)
 
-        var call = request.getPopularMovies(apiKey)
+//        viewModel.searchTerm.observe(this) {
+//            searchString = it
+//            callMovies(call = request.getSearchMovies(apiKey, searchString))
+//        }
 
-        callMovies(call)
+//        val call = request.getPopularMovies(apiKey)
+
+//        callMovies(call)
     }
 
-    fun callMovies(call: Call<MoviesData>) {
-        call.enqueue(object : Callback<MoviesData> {
-            override fun onResponse(call: Call<MoviesData>, response: Response<MoviesData>) {
-                if (response.isSuccessful) {
-                    progress_bar.visibility = View.GONE
-                    if (response.body()!!.results.size == 0 ) {
-                        noResults.visibility = View.VISIBLE
-                    } else {
-                        noResults.visibility = View.INVISIBLE
-                    }
-                    recyclerView.apply {
-                        setHasFixedSize(true)
-                        layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = MoviesAdapter(response.body()!!.results as List<Result>)
-                    }
-//                    setContent {
-//                        MovieSpotterTheme() {
-//                            MovieList(response.body()!!.results)
-//                        }
+//    fun callMovies(call: Call<MoviesData>) {
+//        call.enqueue(object : Callback<MoviesData> {
+//            override fun onResponse(call: Call<MoviesData>, response: Response<MoviesData>) {
+//                if (response.isSuccessful) {
+//                    progress_bar.visibility = View.GONE
+//                    if (response.body()!!.results.size == 0 ) {
+//                        noResults.visibility = View.VISIBLE
+//                    } else {
+//                        noResults.visibility = View.INVISIBLE
 //                    }
-                }
-            }
-
-            override fun onFailure(call: Call<MoviesData>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    fun defaultSelection(defaultCall: Call<MoviesData>) {
-        callMovies(defaultCall)
-    }
+//                    recyclerView.apply {
+//                        setHasFixedSize(true)
+//                        layoutManager = LinearLayoutManager(this@MainActivity)
+//                        adapter = MoviesAdapter(response.body()!!.results as List<Result>)
+//                    }
+////                    setContent {
+////                        MovieSpotterTheme() {
+////                            MovieList(response.body()!!.results)
+////                        }
+////                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<MoviesData>, t: Throwable) {
+//                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
+//
+//    fun defaultSelection(defaultCall: Call<MoviesData>) {
+//        callMovies(defaultCall)
+//    }
 }
 
 //@Composable

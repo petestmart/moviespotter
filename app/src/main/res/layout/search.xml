@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/search_view_container"
     android:background="#D3D3D3"
-    tools:context="com.petestmart.moviespotter.MainActivity">
+    tools:context="com.petestmart.moviespotter.presentation.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/popular_text_compose"
