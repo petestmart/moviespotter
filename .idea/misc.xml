@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/compose_view_fragment.xml" value="0.13385416666666666" />
+        <entry key="app/src/main/res/layout/fragment_movie_list.xml" value="0.15489130434782608" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout/movie_item_compose.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/search.xml" value="0.1328125" />
