@@ -1,9 +1,5 @@
 package com.petestmart.moviespotter.domain.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
 data class Movie (
     val id: Int? = null,
     val title: String? = null,
@@ -11,4 +7,4 @@ data class Movie (
     val posterPath: String? = null,
     val releaseDate: String? = null,
     val voteAverage: Double? = null
-) : Parcelable
+)

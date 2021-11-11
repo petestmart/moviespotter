@@ -24,6 +24,10 @@ constructor(
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
 
     init {
+        newSearch()
+    }
+
+    fun newSearch() {
         viewModelScope.launch {
             val result = repository.search(
                 token = token,
