@@ -38,5 +38,4 @@ object NetworkModule {
     fun provideAuthToken(): String {
         return "97585f2197f5b57abdcdc9c1b1994663"
     }
-
 }

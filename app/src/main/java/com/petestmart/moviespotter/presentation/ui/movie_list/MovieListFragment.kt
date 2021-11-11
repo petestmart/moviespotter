@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -21,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.petestmart.moviespotter.R
+import com.petestmart.moviespotter.presentation.components.MovieCard
 import com.petestmart.moviespotter.util.TAG
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,24 +36,18 @@ class MovieListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         return ComposeView(requireContext()).apply {
             setContent {
 
                 val movies = viewModel.movies.value
 
-                for(movie in movies) {
-                    Log.d(TAG, "onCreateView: ${movie.title}")
-                }
-
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = "MovieList Fragment",
-                        style = TextStyle(
-                            fontSize = 30.sp)
-                        )
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    CircularProgressIndicator()
+                LazyColumn {
+                    itemsIndexed(
+                        items = movies
+                    ) { index, movie ->
+                        MovieCard(movie = movie, onClick = {})
+                    }
                 }
             }
         }
