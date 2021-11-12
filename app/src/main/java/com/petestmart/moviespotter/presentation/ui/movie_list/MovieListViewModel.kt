@@ -23,19 +23,26 @@ constructor(
 
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
 
+    val query = mutableStateOf("Lord of the Rings")
+
     init {
-        newSearch()
+        newSearch(query.value)
     }
 
-    fun newSearch() {
+    fun newSearch(query: String) {
         viewModelScope.launch {
             val result = repository.search(
                 token = token,
-                query = "Boss",
+                query = query,
                 page = 1,
             )
             movies.value = result
         }
+    }
+
+    // Retains value/state when changed or rotated
+    fun onQueryChanged(query: String){
+        this.query.value = query
     }
 }
 
