@@ -4,7 +4,6 @@ import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory.*
 
 enum class MovieCategory(val value: String, val id: Int?) {
     POPULAR("Popular", null),
-    NEWRELEASE("New Release", null),
     ADVENTURE("Adventure", 12),
     ANIMATION("Animation", 16),
     COMEDY("Comedy", 35),
@@ -18,7 +17,6 @@ enum class MovieCategory(val value: String, val id: Int?) {
 fun getAllMovieCategories(): List<MovieCategory>{
     return listOf(
         POPULAR,
-        NEWRELEASE,
         ADVENTURE,
         ANIMATION,
         COMEDY,
