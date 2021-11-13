@@ -113,7 +113,7 @@ class MovieListFragment : Fragment() {
                                         category = category.value,
                                         onExecuteSearch = {
                                             viewModel.onQueryChanged("")
-                                            viewModel.newSearch(it)
+                                            viewModel.newCategorySearch(99)
                                         }
                                     )
                                 }

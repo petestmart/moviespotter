@@ -14,8 +14,8 @@ class MovieRepository_Impl(
         return mapper.toDomainList(movieService.search(token, query, page).movies)
     }
 
-    override suspend fun popular(token: String):
+    override suspend fun category(token: String, page: Int, genreId: Int?):
             List<Movie> {
-        return mapper.toDomainList(movieService.popular(token).movies)
+        return mapper.toDomainList(movieService.category(token, page, genreId).movies)
     }
 }
