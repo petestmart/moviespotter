@@ -40,7 +40,7 @@ fun loadPicture(
 
     Glide.with(LocalContext.current)
         .asBitmap()
-        .load(url)
+        .load(POSTER_BASE_URL + url)
         .into(object : CustomTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 bitmapState.value = resource
