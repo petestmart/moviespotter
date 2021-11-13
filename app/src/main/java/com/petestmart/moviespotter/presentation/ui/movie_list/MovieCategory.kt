@@ -2,17 +2,17 @@ package com.petestmart.moviespotter.presentation.ui.movie_list
 
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory.*
 
-enum class MovieCategory(val value: String) {
-    POPULAR("Popular"),
-    NEWRELEASE("New Release"),
-    ADVENTURE("Adventure"),
-    ANIMATION("Animation"),
-    COMEDY("Comedy"),
-    FANTASY("Fantasy"),
-    DOCUMENTARY("Documentary"),
-    FAMILY("Family"),
-    HORROR("Horror"),
-    ACTION("Action")
+enum class MovieCategory(val value: String, val id: Int?) {
+    POPULAR("Popular", null),
+    NEWRELEASE("New Release", null),
+    ADVENTURE("Adventure", 12),
+    ANIMATION("Animation", 16),
+    COMEDY("Comedy", 35),
+    FANTASY("Fantasy", 14),
+    DOCUMENTARY("Documentary", 99),
+    FAMILY("Family", 10751),
+    HORROR("Horror", 27),
+    ACTION("Action", 28)
 }
 
 fun getAllMovieCategories(): List<MovieCategory>{
@@ -30,7 +30,7 @@ fun getAllMovieCategories(): List<MovieCategory>{
     )
 }
 
-fun getMovieCategory(value: String): MovieCategory?{
+fun getMovieCategory(value: String, id: Int?): MovieCategory?{
     val map = MovieCategory.values().associateBy(MovieCategory::value)
     return map[value]
 }

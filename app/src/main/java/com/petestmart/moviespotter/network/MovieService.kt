@@ -9,6 +9,8 @@ interface MovieService {
     @GET("3/search/movie")
     suspend fun search(
         @Query("api_key") token: String,
+        @Query("include_adult") includeAdult: Boolean,
+        @Query("include_video") includeVideo: Boolean,
         @Query("query") query: String,
         @Query("page") page: Int
     ) : MovieSearchResponse
@@ -16,6 +18,10 @@ interface MovieService {
     @GET("3/discover/movie")
     suspend fun category(
         @Query("api_key") token: String,
+        @Query("language") language: String,
+        @Query("sort_by") sortBy: String,
+        @Query("include_adult") includeAdult: Boolean,
+        @Query("include_video") includeVideo: Boolean,
         @Query("page") page: Int,
         @Query("with_genres") genreId: Int?,
     ) : MovieSearchResponse
