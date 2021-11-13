@@ -9,13 +9,41 @@ class MovieRepository_Impl(
     private val mapper: MovieDtoMapper
 ): MovieRepository {
 
-    override suspend fun search(token: String, query: String, page: Int):
+    override suspend fun search(
+        token: String,
+        includeAdult: Boolean,
+        includeVideo: Boolean,
+        query: String,
+        page: Int
+    ):
             List<Movie> {
-        return mapper.toDomainList(movieService.search(token, query, page).movies)
+        return mapper.toDomainList(movieService.search(
+            token,
+            includeAdult,
+            includeVideo,
+            query,
+            page
+        ).movies)
     }
 
-    override suspend fun category(token: String, page: Int, genreId: Int?):
+    override suspend fun category(
+        token: String,
+        language: String,
+        sortBy: String,
+        includeAdult: Boolean,
+        includeVideo: Boolean,
+        page: Int,
+        genreId: Int?
+    ):
             List<Movie> {
-        return mapper.toDomainList(movieService.category(token, page, genreId).movies)
+        return mapper.toDomainList(movieService.category(
+            token,
+            language,
+            sortBy,
+            includeAdult,
+            includeVideo,
+            page,
+            genreId
+        ).movies)
     }
 }

@@ -3,6 +3,7 @@ package com.petestmart.moviespotter.presentation.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Surface
@@ -18,9 +19,10 @@ fun MovieCategoryChip(
     onExecuteSearch: (String) -> Unit,
 ) {
     Surface(
-        modifier = Modifier.padding(end = 8.dp),
+        modifier = Modifier
+            .padding(end = 8.dp, bottom = 8.dp),
         elevation = 8.dp,
-        shape = MaterialTheme.shapes.large,
+        shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colors.primary
     ) {
         Row(
@@ -29,7 +31,7 @@ fun MovieCategoryChip(
         ) {
             Text(
                 text = category,
-                style = MaterialTheme.typography.body2,
+                style = typography.body2,
                 color = Color.White,
                 modifier = Modifier.padding(8.dp)
             )

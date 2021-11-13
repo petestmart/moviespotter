@@ -32,6 +32,8 @@ constructor(
         viewModelScope.launch {
             val result = repository.search(
                 token = token,
+                includeAdult = false,
+                includeVideo = false,
                 query = query,
                 page = 1,
             )
@@ -39,10 +41,14 @@ constructor(
         }
     }
 
-    fun newCategorySearch(genreId: Int? ) {
+    fun newCategorySearch(genreId: Int?) {
         viewModelScope.launch {
             val result = repository.category(
                 token = token,
+                language = "en-US",
+                sortBy = "popularity.desc",
+                includeAdult = false,
+                includeVideo = false,
                 page = 1,
                 genreId = genreId,
             )
@@ -51,7 +57,7 @@ constructor(
     }
 
     // Retains value/state when changed or rotated
-    fun onQueryChanged(query: String){
+    fun onQueryChanged(query: String) {
         this.query.value = query
     }
 }
