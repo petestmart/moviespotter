@@ -1,8 +1,8 @@
 package com.petestmart.moviespotter.presentation.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
@@ -12,22 +12,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlin.reflect.KFunction1
 
 @Composable
 fun MovieCategoryChip(
     category: String,
-    onExecuteSearch: (String) -> Unit,
+    isSelected: Boolean = false,
+    onSelectedCategoryChanged: (String) -> Unit,
+    newCategorySearch: () -> Unit,
 ) {
     Surface(
         modifier = Modifier
-            .padding(end = 8.dp, bottom = 8.dp),
+            .padding(end = 8.dp),
         elevation = 8.dp,
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colors.primary
+        color = if(isSelected) Color.LightGray else MaterialTheme.colors.primary
     ) {
         Row(
             modifier = Modifier
-                .clickable(onClick = { onExecuteSearch(category) })
+                .toggleable(
+                    value = isSelected,
+                    onValueChange = {
+                        onSelectedCategoryChanged(category)
+                        newCategorySearch()
+                    }
+                )
         ) {
             Text(
                 text = category,

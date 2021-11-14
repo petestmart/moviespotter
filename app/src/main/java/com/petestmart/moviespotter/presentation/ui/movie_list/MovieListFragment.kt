@@ -1,7 +1,6 @@
 package com.petestmart.moviespotter.presentation.ui.movie_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +16,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,16 +24,11 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.presentation.components.MovieCard
 import com.petestmart.moviespotter.presentation.components.MovieCategoryChip
-import com.petestmart.moviespotter.util.TAG
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,6 +48,7 @@ class MovieListFragment : Fragment() {
                 val movies = viewModel.movies.value
                 val query = viewModel.query.value
                 val keyboardController = LocalSoftwareKeyboardController.current
+                val selectedCategory = viewModel.selectedCategory.value
 
                 Column {
                     Surface(
@@ -68,7 +60,7 @@ class MovieListFragment : Fragment() {
                         Column {
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth(),
+                                    .fillMaxWidth()
                             ) {
                                 TextField(
                                     modifier = Modifier
@@ -97,7 +89,7 @@ class MovieListFragment : Fragment() {
                                         )
                                     },
                                     keyboardActions = KeyboardActions(onSearch = {
-                                        viewModel.newSearch(query)
+                                        viewModel.newSearch()
                                         keyboardController?.hide()
                                     }),
                                     textStyle = TextStyle(
@@ -107,14 +99,19 @@ class MovieListFragment : Fragment() {
                                     colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface),
                                 )
                             }
-                            LazyRow(content = {
+                            LazyRow(
+                                modifier = Modifier
+                                    .padding(start = 8.dp, bottom = 8.dp),
+                                content = {
                                 items(getAllMovieCategories()) { category ->
                                     MovieCategoryChip(
                                         category = category.value,
-                                        onExecuteSearch = {
+                                        isSelected = selectedCategory == category,
+                                        onSelectedCategoryChanged = {
                                             viewModel.onQueryChanged("")
-                                            viewModel.newCategorySearch(category.id)
-                                        }
+                                            viewModel.onSelectedCategoryChanged(category.id)
+                                        },
+                                        { viewModel.newCategorySearch(category.id) }
                                     )
                                 }
                             })
