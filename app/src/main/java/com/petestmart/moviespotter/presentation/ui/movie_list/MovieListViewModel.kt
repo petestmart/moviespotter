@@ -23,18 +23,19 @@ constructor(
 
     val query = mutableStateOf("")
 
+    val selectedCategory: MutableState<MovieCategory?> = mutableStateOf(null)
+
     init {
-//        newSearch(query.value)
         newCategorySearch(null)
     }
 
-    fun newSearch(query: String) {
+    fun newSearch() {
         viewModelScope.launch {
             val result = repository.search(
                 token = token,
                 includeAdult = false,
                 includeVideo = false,
-                query = query,
+                query = query.value,
                 page = 1,
             )
             movies.value = result
@@ -54,6 +55,11 @@ constructor(
             )
             movies.value = result
         }
+    }
+    fun onSelectedCategoryChanged(category: Int?) {
+        val newCategory = getMovieCategory(category)
+        selectedCategory.value = newCategory
+        newCategorySearch(category)
     }
 
     // Retains value/state when changed or rotated
