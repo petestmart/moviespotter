@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
+import kotlin.reflect.KMutableProperty0
 
 @HiltViewModel
 class MovieListViewModel
@@ -24,6 +25,10 @@ constructor(
     val query = mutableStateOf("")
 
     val selectedCategory: MutableState<MovieCategory?> = mutableStateOf(null)
+
+    var categoryScrollPosition: Int = 0
+
+    var categoryScrollOffsetPosition: Int = 0
 
     init {
         newCategorySearch(null)
@@ -65,6 +70,11 @@ constructor(
     // Retains value/state when changed or rotated
     fun onQueryChanged(query: String) {
         this.query.value = query
+    }
+
+    fun onChangeCategoryPosition(position: Int, offset: Int) {
+        categoryScrollPosition = position
+        categoryScrollOffsetPosition = offset
     }
 }
 
