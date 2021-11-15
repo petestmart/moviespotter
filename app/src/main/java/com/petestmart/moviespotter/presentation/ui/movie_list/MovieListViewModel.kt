@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -21,14 +22,11 @@ constructor(
 ) : ViewModel() {
 
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
-
     val query = mutableStateOf("")
-
     val selectedCategory: MutableState<MovieCategory?> = mutableStateOf(null)
-
     var categoryScrollPosition: Int = 0
-
     var categoryScrollOffsetPosition: Int = 0
+    val loading = mutableStateOf(false)
 
     init {
         newCategorySearch(null)
@@ -36,6 +34,9 @@ constructor(
 
     fun newSearch() {
         viewModelScope.launch {
+            loading.value = true
+            resetSearchState()
+            delay(1000)
             val result = repository.search(
                 token = token,
                 includeAdult = false,
@@ -44,11 +45,15 @@ constructor(
                 page = 1,
             )
             movies.value = result
+            loading.value = false
         }
     }
 
     fun newCategorySearch(genreId: Int?) {
         viewModelScope.launch {
+            loading.value = true
+            resetSearchState()
+            delay(1000)
             val result = repository.category(
                 token = token,
                 language = "en-US",
@@ -59,15 +64,26 @@ constructor(
                 genreId = genreId,
             )
             movies.value = result
+            loading.value = false
         }
     }
+
     fun onSelectedCategoryChanged(category: Int?) {
         val newCategory = getMovieCategory(category)
         selectedCategory.value = newCategory
         newCategorySearch(category)
     }
 
-    // Retains value/state when changed or rotated
+    private fun resetSearchState() {
+        movies.value = listOf()
+        if (selectedCategory.value?.value != query.value)
+            clearSelectedCategory()
+    }
+
+    private fun clearSelectedCategory() {
+        selectedCategory.value = null
+    }
+
     fun onQueryChanged(query: String) {
         this.query.value = query
     }

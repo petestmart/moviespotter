@@ -117,4 +117,7 @@ dependencies {
 
     // required to avoid crash on Android 12 API 31
     implementation 'androidx.work:work-runtime-ktx:2.7.0'
+
+    // Constraint Layout (has different versioning than Jetpack Compose)
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
 }
