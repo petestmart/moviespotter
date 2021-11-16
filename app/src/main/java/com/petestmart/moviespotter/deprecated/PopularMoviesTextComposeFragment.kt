@@ -1,4 +1,4 @@
-package com.petestmart.moviespotter
+package com.petestmart.moviespotter.deprecated
 
 //import android.os.Bundle
 //import android.view.LayoutInflater

@@ -23,7 +23,7 @@ fun MovieCategoryChip(
 ) {
     Surface(
         modifier = Modifier
-            .padding(end = 8.dp),
+            .padding(horizontal = 4.dp),
         elevation = 8.dp,
         shape = RoundedCornerShape(16.dp),
         color = if(isSelected) Color.LightGray else MaterialTheme.colors.primary

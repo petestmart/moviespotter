@@ -18,33 +18,40 @@ import kotlinx.android.synthetic.main.search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlinx.android.synthetic.main.activity_main.progress_bar
+//import kotlinx.android.synthetic.main.activity_main.progress_bar
 import javax.inject.Inject
 
 @AndroidEntryPoint
 open class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var app: BaseApplication
-
-//    private val viewModel: MovieSearchViewModel by viewModels()
-    private var searchString = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContent {
-//            MovieSpotterTheme() {
         setContentView(R.layout.activity_main)
+    }
+}
+
+// Deprecated Code
+//@AndroidEntryPoint
+//open class MainActivity : AppCompatActivity() {
+//
+////    @Inject
+////    lateinit var app: BaseApplication
+//
+////    private val viewModel: MovieSearchViewModel by viewModels()
+//    private var searchString = ""
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        println("BIGCHECK MainActivity: OnCreate")
+////        setContent {
+////            MovieSpotterTheme() {
+//        setContentView(R.layout.activity_main)
 //            }
 //        }
 
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.popular_text_compose, PopularMoviesTextComposeFragment())
 //            .commit()
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, MovieListFragment())
-            .commit()
 
 //        val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
 //        val apiKey = getString(R.string.api_key)
@@ -57,7 +64,7 @@ open class MainActivity : AppCompatActivity() {
 //        val call = request.getPopularMovies(apiKey)
 
 //        callMovies(call)
-    }
+//    }
 
 //    fun callMovies(call: Call<MoviesData>) {
 //        call.enqueue(object : Callback<MoviesData> {
@@ -91,7 +98,7 @@ open class MainActivity : AppCompatActivity() {
 //    fun defaultSelection(defaultCall: Call<MoviesData>) {
 //        callMovies(defaultCall)
 //    }
-}
+//}
 
 //@Composable
 //fun MovieList(results: List<Result>) {

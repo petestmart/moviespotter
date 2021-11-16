@@ -20,6 +20,7 @@ object RepositoryModule {
         movieService: MovieService,
         movieDtoMapper: MovieDtoMapper
     ): MovieRepository {
+        println("BIGCHECK RepositoryModule: provideMovieRepository")
         return MovieRepository_Impl(movieService, movieDtoMapper)
     }
 }

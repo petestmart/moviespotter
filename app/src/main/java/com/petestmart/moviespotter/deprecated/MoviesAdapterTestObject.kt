@@ -1,4 +1,4 @@
-package com.petestmart.moviespotter
+package com.petestmart.moviespotter.deprecated
 
 //object MoviesAdapterTestObject {
 //
