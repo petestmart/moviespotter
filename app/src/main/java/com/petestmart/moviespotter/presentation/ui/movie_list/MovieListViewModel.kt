@@ -30,6 +30,7 @@ constructor(
 
     init {
         newCategorySearch(null)
+        println("BIGCHECK MovieListViewModel: init")
     }
 
     fun newSearch() {
@@ -69,6 +70,7 @@ constructor(
     }
 
     fun onSelectedCategoryChanged(category: Int?) {
+        println("BIGCHECK MovieListViewModel: onSelectedCategoryChanged")
         val newCategory = getMovieCategory(category)
         selectedCategory.value = newCategory
         newCategorySearch(category)
@@ -76,19 +78,21 @@ constructor(
 
     private fun resetSearchState() {
         movies.value = listOf()
-        if (selectedCategory.value?.value != query.value)
-            clearSelectedCategory()
+//        if (selectedCategory.value?.value != query.value)
+//            clearSelectedCategory()
     }
 
-    private fun clearSelectedCategory() {
-        selectedCategory.value = null
-    }
+//    private fun clearSelectedCategory() {
+//        selectedCategory.value = null
+//    }
 
     fun onQueryChanged(query: String) {
+        println("BIGCHECK MovieListViewModel: onQueryChanged")
         this.query.value = query
     }
 
     fun onChangeCategoryPosition(position: Int, offset: Int) {
+        println("BIGCHECK MovieListViewModel: onChangeCategoryPosition")
         categoryScrollPosition = position
         categoryScrollOffsetPosition = offset
     }

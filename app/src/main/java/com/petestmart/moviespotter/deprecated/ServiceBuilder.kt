@@ -1,4 +1,4 @@
-package com.petestmart.moviespotter
+package com.petestmart.moviespotter.deprecated
 
 //import okhttp3.OkHttpClient
 //import retrofit2.Retrofit

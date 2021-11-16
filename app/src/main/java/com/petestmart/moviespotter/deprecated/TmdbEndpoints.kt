@@ -1,4 +1,4 @@
-package com.petestmart.moviespotter
+package com.petestmart.moviespotter.deprecated
 
 //import retrofit2.Call
 //import retrofit2.http.GET

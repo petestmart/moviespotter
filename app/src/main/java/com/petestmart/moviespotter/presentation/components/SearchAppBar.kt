@@ -100,9 +100,10 @@ fun SearchAppBar(
             LazyRow(
                 state = lazyListState,
                 modifier = Modifier
-                    .padding(start = 8.dp, bottom = 8.dp),
+                    .padding(bottom = 8.dp),
                 content = {
                     coroutineScope.launch {
+                        println("BIGCHECK SearchAppBar: coroutineScope.launch")
                         lazyListState.scrollToItem(
                             categoryScrollPosition,
                             categoryScrollOffsetPosition                        )
