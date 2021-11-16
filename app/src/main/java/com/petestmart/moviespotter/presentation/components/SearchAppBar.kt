@@ -34,7 +34,6 @@ fun SearchAppBar(
     onQueryChanged: (String) -> Unit,
     onExecuteSearch: () -> Unit,
     categoryScrollPosition: Int,
-//    categoryScrollOffsetPosition: Int,
     selectedCategory: MovieCategory?,
     onSelectedCategoryChanged: (Int?) -> Unit,
     onChangeCategoryPosition: KFunction1<Int, Unit>,
@@ -93,7 +92,6 @@ fun SearchAppBar(
                 )
             }
             var lazyListState = rememberLazyListState()
-//            var coroutineScope = rememberCoroutineScope()
             var categoryScrollPosition: Int
 
             LazyRow(
@@ -101,13 +99,6 @@ fun SearchAppBar(
                 modifier = Modifier
                     .padding(bottom = 8.dp),
                 content = {
-//                    coroutineScope.launch {
-//                        lazyListState.scrollToItem(
-//                            categoryScrollPosition,
-//                            categoryScrollOffsetPosition
-//                        )
-//                    }
-
                     items(getAllMovieCategories()) { category ->
                         MovieCategoryChip(
 
@@ -118,8 +109,6 @@ fun SearchAppBar(
                                 onSelectedCategoryChanged(category.id)
                                 categoryScrollPosition =
                                     lazyListState.firstVisibleItemIndex
-//                                categoryScrollOffsetPosition =
-//                                    lazyListState.firstVisibleItemScrollOffset
                             },
                             { newCategorySearch(category.id) }
                         )

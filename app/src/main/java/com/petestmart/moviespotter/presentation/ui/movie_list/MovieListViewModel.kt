@@ -25,7 +25,6 @@ constructor(
     val query = mutableStateOf("")
     val selectedCategory: MutableState<MovieCategory?> = mutableStateOf(null)
     var categoryScrollPosition: Int = 0
-//    var categoryScrollOffsetPosition: Int = 0
     val loading = mutableStateOf(false)
 
     init {
