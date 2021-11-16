@@ -27,7 +27,6 @@ class MovieListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        println("BIGCHECK MovieListFragment: On Create View")
         return ComposeView(requireContext()).apply {
             setContent {
 
@@ -42,7 +41,6 @@ class MovieListFragment : Fragment() {
                         onQueryChanged = viewModel::onQueryChanged,
                         onExecuteSearch = viewModel::newSearch,
                         categoryScrollPosition = viewModel.categoryScrollPosition,
-                        categoryScrollOffsetPosition = viewModel.categoryScrollOffsetPosition,
                         selectedCategory = selectedCategory,
                         onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
                         onChangeCategoryPosition = viewModel::onChangeCategoryPosition,
