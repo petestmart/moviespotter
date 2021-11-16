@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,8 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory
 import com.petestmart.moviespotter.presentation.ui.movie_list.getAllMovieCategories
-import kotlinx.coroutines.launch
-import kotlin.reflect.KFunction2
+import kotlin.reflect.KFunction1
 
 @ExperimentalComposeUiApi
 @Composable
@@ -36,10 +34,10 @@ fun SearchAppBar(
     onQueryChanged: (String) -> Unit,
     onExecuteSearch: () -> Unit,
     categoryScrollPosition: Int,
-    categoryScrollOffsetPosition: Int,
+//    categoryScrollOffsetPosition: Int,
     selectedCategory: MovieCategory?,
     onSelectedCategoryChanged: (Int?) -> Unit,
-    onChangeCategoryPosition: KFunction2<Int, Int, Unit>,
+    onChangeCategoryPosition: KFunction1<Int, Unit>,
     newCategorySearch: (Int?) -> Unit,
 
     ) {
@@ -95,35 +93,39 @@ fun SearchAppBar(
                 )
             }
             var lazyListState = rememberLazyListState()
-            var coroutineScope = rememberCoroutineScope()
+//            var coroutineScope = rememberCoroutineScope()
+            var categoryScrollPosition: Int
 
             LazyRow(
                 state = lazyListState,
                 modifier = Modifier
                     .padding(bottom = 8.dp),
                 content = {
-                    coroutineScope.launch {
-                        println("BIGCHECK SearchAppBar: coroutineScope.launch")
-                        lazyListState.scrollToItem(
-                            categoryScrollPosition,
-                            categoryScrollOffsetPosition                        )
-                    }
+//                    coroutineScope.launch {
+//                        lazyListState.scrollToItem(
+//                            categoryScrollPosition,
+//                            categoryScrollOffsetPosition
+//                        )
+//                    }
+
                     items(getAllMovieCategories()) { category ->
                         MovieCategoryChip(
+
                             category = category.value,
                             isSelected = selectedCategory == category,
                             onSelectedCategoryChanged = {
                                 onQueryChanged("")
                                 onSelectedCategoryChanged(category.id)
-//                                categoryScrollPosition =
-//                                    lazyListState.firstVisibleItemIndex
+                                categoryScrollPosition =
+                                    lazyListState.firstVisibleItemIndex
 //                                categoryScrollOffsetPosition =
 //                                    lazyListState.firstVisibleItemScrollOffset
                             },
                             { newCategorySearch(category.id) }
                         )
                     }
-                })
+                }
+            )
         }
     }
 }
