@@ -8,13 +8,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,6 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory
 import com.petestmart.moviespotter.presentation.ui.movie_list.getAllMovieCategories
 import kotlin.reflect.KFunction1
@@ -38,14 +42,14 @@ fun SearchAppBar(
     onSelectedCategoryChanged: (Int?) -> Unit,
     onChangeCategoryPosition: KFunction1<Int, Unit>,
     newCategorySearch: (Int?) -> Unit,
-
+    onToggleTheme: () -> Unit,
     ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
-        color = Color.White,
+        color = MaterialTheme.colors.surface,
         elevation = 8.dp
     ) {
         Column {
@@ -53,7 +57,8 @@ fun SearchAppBar(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                TextField(
+                OutlinedTextField(
+                    shape = RoundedCornerShape(32.dp),
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
                         .padding(8.dp),
@@ -90,6 +95,22 @@ fun SearchAppBar(
                     ),
                     colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface),
                 )
+                ConstraintLayout(
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                ) {
+                    val menu = createRef()
+                    IconButton(
+                        onClick = onToggleTheme,
+                        modifier = Modifier
+                            .constrainAs(menu){
+                                end.linkTo(parent.end)
+                                top.linkTo(parent.top)
+                                bottom.linkTo(parent.bottom)
+                            }
+                    ) {
+                        Icon(Icons.Filled.MoreVert, contentDescription = "Dark Theme Toggle")
+                    }
+                }
             }
             var lazyListState = rememberLazyListState()
             var categoryScrollPosition: Int

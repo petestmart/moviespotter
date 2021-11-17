@@ -19,14 +19,20 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.petestmart.moviespotter.presentation.BaseApplication
 import com.petestmart.moviespotter.presentation.components.CircularIndeterminateProgressBar
 import com.petestmart.moviespotter.presentation.components.MovieCard
 import com.petestmart.moviespotter.presentation.components.SearchAppBar
 import com.petestmart.moviespotter.presentation.components.ShimmerMovieCardItem
+import com.petestmart.moviespotter.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment() {
+
+    @Inject
+    lateinit var application: BaseApplication
 
     private val viewModel: MovieListViewModel by viewModels()
 
@@ -39,41 +45,50 @@ class MovieListFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
 
-                val movies = viewModel.movies.value
-                val query = viewModel.query.value
-                val selectedCategory = viewModel.selectedCategory.value
-                val loading = viewModel.loading.value
+                AppTheme(
+                    darkTheme = application.isDark.value
+                ) {
+                    val movies = viewModel.movies.value
+                    val query = viewModel.query.value
+                    val selectedCategory = viewModel.selectedCategory.value
+                    val loading = viewModel.loading.value
 
-                Column {
-                    SearchAppBar(
-                        query = query,
-                        onQueryChanged = viewModel::onQueryChanged,
-                        onExecuteSearch = viewModel::newSearch,
-                        categoryScrollPosition = viewModel.categoryScrollPosition,
-                        selectedCategory = selectedCategory,
-                        onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
-                        onChangeCategoryPosition = viewModel::onChangeCategoryPosition,
-                        newCategorySearch = viewModel::newCategorySearch,
-                    )
+                    Column {
+                        SearchAppBar(
+                            query = query,
+                            onQueryChanged = viewModel::onQueryChanged,
+                            onExecuteSearch = viewModel::newSearch,
+                            categoryScrollPosition = viewModel.categoryScrollPosition,
+                            selectedCategory = selectedCategory,
+                            onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
+                            onChangeCategoryPosition = viewModel::onChangeCategoryPosition,
+                            newCategorySearch = viewModel::newCategorySearch,
+                            onToggleTheme = {
+                                application.toggleTheme()
+                            }
+                        )
 
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(color = MaterialTheme.colors.background)
+                        ) {
 
-                        if (loading) {
-                            ShimmerMovieCardItem(
-                                imageHeight = 250.dp, padding = 8.dp
-                            )
-                        } else {
-                            LazyColumn {
-                                itemsIndexed(
-                                    items = movies
-                                ) { index, movie ->
-                                    MovieCard(movie = movie, onClick = {})
+                            if (loading) {
+                                ShimmerMovieCardItem(
+                                    imageHeight = 250.dp, padding = 8.dp
+                                )
+                            } else {
+                                LazyColumn {
+                                    itemsIndexed(
+                                        items = movies
+                                    ) { index, movie ->
+                                        MovieCard(movie = movie, onClick = {})
+                                    }
                                 }
                             }
+                            CircularIndeterminateProgressBar(isDisplayed = loading)
                         }
-                        CircularIndeterminateProgressBar(isDisplayed = loading)
                     }
                 }
             }
