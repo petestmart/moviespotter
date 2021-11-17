@@ -72,8 +72,8 @@ class MovieListFragment : Fragment() {
                                     MovieCard(movie = movie, onClick = {})
                                 }
                             }
-                            CircularIndeterminateProgressBar(isDisplayed = loading)
                         }
+                        CircularIndeterminateProgressBar(isDisplayed = loading)
                     }
                 }
             }

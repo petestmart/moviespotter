@@ -3,6 +3,7 @@ package com.petestmart.moviespotter.presentation.components
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -26,7 +27,8 @@ fun ShimmerMovieCardItem(
     )
 
     BoxWithConstraints(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
     ) {
         val widthPx = with(LocalDensity.current) { (maxWidth - padding * 2f).toPx() }
         val heightPx = with(LocalDensity.current) { (imageHeight - padding).toPx() }
@@ -81,7 +83,10 @@ private fun drawShimmerCard(
     background: Brush
 ) {
     Column(modifier = Modifier.padding(padding)) {
-        Surface(shape = MaterialTheme.shapes.small) {
+        Surface(
+            elevation = 8.dp,
+            shape = RoundedCornerShape(16.dp),
+        ) {
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -91,7 +96,8 @@ private fun drawShimmerCard(
         }
         Spacer(modifier = Modifier.padding(8.dp))
         Surface(
-            shape = MaterialTheme.shapes.small,
+            elevation = 8.dp,
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .padding(vertical = 8.dp)
         ) {
