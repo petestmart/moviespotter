@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -45,6 +46,7 @@ fun SearchAppBar(
     onToggleTheme: () -> Unit,
     ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
 
     Surface(
         modifier = Modifier
@@ -130,6 +132,7 @@ fun SearchAppBar(
                                 onSelectedCategoryChanged(category.id)
                                 categoryScrollPosition =
                                     lazyListState.firstVisibleItemIndex
+                                focusManager.clearFocus()
                             },
                             { newCategorySearch(category.id) }
                         )
