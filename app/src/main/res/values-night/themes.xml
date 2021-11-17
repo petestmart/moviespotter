@@ -1,23 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application dark theme. -->
+    <!-- themes.xml files only used for status bar -->
+    <!-- See [Theme.kt] for theme configurations -->
     <style name="Theme.MovieSpotter" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
-    <style name="Widget.App.CardStyle"
-        parent="Widget.MaterialComponents.CardView">
-        <item name="materialThemeOverlay">@style/Widget.App.CardStyle</item>
-    </style>
-    <style name="materialThemeOverlay">
-        <item name="colorPrimary">@color/black</item>
+        <item name="android:statusBarColor"
+            tools:targetAPI="1">@color/primaryDarkColor</item>
     </style>
 </resources>
