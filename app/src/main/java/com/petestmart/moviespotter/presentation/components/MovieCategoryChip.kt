@@ -26,7 +26,7 @@ fun MovieCategoryChip(
             .padding(horizontal = 4.dp),
         elevation = 8.dp,
         shape = RoundedCornerShape(16.dp),
-        color = if(isSelected) Color.LightGray else MaterialTheme.colors.primary
+        color = if(isSelected) MaterialTheme.colors.secondary else MaterialTheme.colors.primary
     ) {
         Row(
             modifier = Modifier
@@ -41,7 +41,7 @@ fun MovieCategoryChip(
             Text(
                 text = category,
                 style = typography.body2,
-                color = Color.White,
+                color = if(isSelected) MaterialTheme.colors.onSecondary else MaterialTheme.colors.onPrimary,
                 modifier = Modifier.padding(8.dp)
             )
         }
