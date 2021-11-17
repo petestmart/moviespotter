@@ -23,11 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory
 import com.petestmart.moviespotter.presentation.ui.movie_list.getAllMovieCategories
 import kotlin.reflect.KFunction1
@@ -44,9 +46,11 @@ fun SearchAppBar(
     onChangeCategoryPosition: KFunction1<Int, Unit>,
     newCategorySearch: (Int?) -> Unit,
     onToggleTheme: () -> Unit,
-    ) {
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
+    val DARK_THEME_ICON = R.drawable.ic_baseline_dark_mode_24
+    val LIGHT_THEME_ICON = R.drawable.baseline_light_mode_24
 
     Surface(
         modifier = Modifier
@@ -101,17 +105,15 @@ fun SearchAppBar(
                     modifier = Modifier.align(Alignment.CenterVertically)
                 ) {
                     val menu = createRef()
-                    IconButton(
-                        onClick = onToggleTheme,
+                    ThemeIconButton(
+                        onToggleTheme,
                         modifier = Modifier
                             .constrainAs(menu){
                                 end.linkTo(parent.end)
                                 top.linkTo(parent.top)
                                 bottom.linkTo(parent.bottom)
                             }
-                    ) {
-                        Icon(Icons.Filled.MoreVert, contentDescription = "Dark Theme Toggle")
-                    }
+                    )
                 }
             }
             var lazyListState = rememberLazyListState()
