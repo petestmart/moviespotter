@@ -1,5 +1,7 @@
 package com.petestmart.moviespotter.presentation.components
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
@@ -22,11 +24,11 @@ fun MovieCategoryChip(
     newCategorySearch: () -> Unit,
 ) {
     Surface(
-        modifier = Modifier
-            .padding(horizontal = 4.dp),
         elevation = 8.dp,
         shape = RoundedCornerShape(16.dp),
-        color = if(isSelected) MaterialTheme.colors.secondary else MaterialTheme.colors.primary
+        color = if(isSelected) MaterialTheme.colors.secondary else MaterialTheme.colors.primary,
+        modifier = Modifier
+            .padding(horizontal = 4.dp)
     ) {
         Row(
             modifier = Modifier
