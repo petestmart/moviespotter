@@ -10,6 +10,9 @@ MovieSpotter is an Android app that displays the current most popular movies!
 [Download the APK Here](https://drive.google.com/drive/folders/1IRCjpgzMtE7eoJJ8_1QTZMqDV7G8eqqm?usp=sharing) and simply install on an Android device.
 If you're having trouble downloading you may have Blocked Third-Party Cookies: [Click here for steps on allowing permissions](https://support.google.com/drive/answer/2423534?hl=en&co=GENIE.Platform%3DDesktop#zippy=%2Cblocked-third-party-cookies-can-prevent-drive-web-downloads)
 
+## Version 2.0 Coming Soon
+[Public Trello Board](https://trello.com/b/2qliTAF2/moviespotter)
+
 ## Technologies
 * Kotlin
 * Java
