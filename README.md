@@ -10,6 +10,9 @@ See popular movies, select by genre, or search for your favorites!
 
 [Public Trello Board](https://trello.com/b/2qliTAF2/moviespotter)
 
+## Version 2.0 Coming Soon
+[Public Trello Board](https://trello.com/b/2qliTAF2/moviespotter)
+
 ## Technologies
 * Kotlin
 * Java
