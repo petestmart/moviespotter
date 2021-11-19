@@ -20,13 +20,24 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.petestmart.moviespotter.presentation.BaseApplication
-import com.petestmart.moviespotter.presentation.components.CircularIndeterminateProgressBar
-import com.petestmart.moviespotter.presentation.components.MovieCard
-import com.petestmart.moviespotter.presentation.components.SearchAppBar
-import com.petestmart.moviespotter.presentation.components.ShimmerMovieCardItem
 import com.petestmart.moviespotter.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.materialIcon
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import androidx.fragment.app.viewModels
+import com.petestmart.moviespotter.presentation.components.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment() {
@@ -53,21 +64,29 @@ class MovieListFragment : Fragment() {
                     val selectedCategory = viewModel.selectedCategory.value
                     val loading = viewModel.loading.value
 
-                    Column {
-                        SearchAppBar(
-                            query = query,
-                            onQueryChanged = viewModel::onQueryChanged,
-                            onExecuteSearch = viewModel::newSearch,
-                            categoryScrollPosition = viewModel.categoryScrollPosition,
-                            selectedCategory = selectedCategory,
-                            onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
-                            onChangeCategoryPosition = viewModel::onChangeCategoryPosition,
-                            newCategorySearch = viewModel::newCategorySearch,
-                            onToggleTheme = {
-                                application.toggleTheme()
-                            }
-                        )
-
+                    Scaffold(
+                        topBar = {
+                            SearchAppBar(
+                                query = query,
+                                onQueryChanged = viewModel::onQueryChanged,
+                                onExecuteSearch = viewModel::newSearch,
+                                categoryScrollPosition = viewModel.categoryScrollPosition,
+                                selectedCategory = selectedCategory,
+                                onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
+                                onChangeCategoryPosition = viewModel::onChangeCategoryPosition,
+                                newCategorySearch = viewModel::newCategorySearch,
+                                onToggleTheme = {
+                                    application.toggleTheme()
+                                }
+                            )
+                        },
+                        bottomBar = {
+//                            BottomNavBar()
+                        },
+                        drawerContent = {
+//                            LeftDrawer()
+                        }
+                    ) {
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
