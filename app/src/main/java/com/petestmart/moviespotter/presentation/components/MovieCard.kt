@@ -28,7 +28,7 @@ fun MovieCard(
     onClick: () -> Unit,
 ) {
     Card(
-        shape = RoundedCornerShape(16.dp),
+        shape = MaterialTheme.shapes.medium,
         modifier = Modifier
             .padding(
                 bottom = 6.dp,
@@ -68,28 +68,53 @@ fun MovieCard(
 
             movie.title?.let { title ->
                 Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
                             vertical = 12.dp,
-                            horizontal = 8.dp
+                            horizontal = 12.dp
                         )
                 ) {
-                    Text(
-                        text = title,
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth(0.85f)
+                            .fillMaxWidth(0.80f)
                             .wrapContentWidth(Alignment.Start),
-                        style = MaterialTheme.typography.h5
-                    )
-                    Text(
-                        text = movie.voteAverage.toString(),
+                    ) {
+                        Text(
+                            text = title,
+                            style = MaterialTheme.typography.h2
+                        )
+                        Text(
+                            text = movie.releaseDate.toString(),
+                            modifier = Modifier
+                                .fillMaxWidth(0.90f)
+                                .wrapContentWidth(Alignment.Start),
+                            style = MaterialTheme
+                                .typography.body2,
+                        )
+                    }
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentWidth(Alignment.End)
-                            .align(Alignment.CenterVertically),
-                        style = MaterialTheme.typography.h6
-                    )
+                            .padding(
+                                top = 12.dp
+                            )
+                        ,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                        Text(
+                            text = movie.voteAverage.toString(),
+                            style = MaterialTheme
+                                .typography.body2,
+                        )
+                        Text(
+                            text = "User Score",
+                            style = MaterialTheme
+                                .typography.h6,
+                        )
+                    }
                 }
             }
         }
