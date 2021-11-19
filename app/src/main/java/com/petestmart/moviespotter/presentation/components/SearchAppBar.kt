@@ -64,9 +64,9 @@ fun SearchAppBar(
                     .fillMaxWidth()
             ) {
                 OutlinedTextField(
-                    shape = RoundedCornerShape(32.dp),
+                    shape = MaterialTheme.shapes.large,
                     modifier = Modifier
-                        .fillMaxWidth(0.9f)
+                        .fillMaxWidth(0.88f)
                         .padding(8.dp),
                     value = query,
                     onValueChange = { newValue ->
@@ -99,16 +99,22 @@ fun SearchAppBar(
                         color =
                         MaterialTheme.colors.onSurface
                     ),
-                    colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = MaterialTheme.colors.surface,
+                        focusedIndicatorColor = MaterialTheme.colors.onSurface,
+                        cursorColor = MaterialTheme.colors.onSurface,
+                        focusedLabelColor = MaterialTheme.colors.onSurface,
+                    ),
                 )
                 ConstraintLayout(
-                    modifier = Modifier.align(Alignment.CenterVertically)
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
                 ) {
                     val menu = createRef()
                     ThemeIconButton(
                         onToggleTheme,
                         modifier = Modifier
-                            .constrainAs(menu){
+                            .constrainAs(menu) {
                                 end.linkTo(parent.end)
                                 top.linkTo(parent.top)
                                 bottom.linkTo(parent.bottom)
