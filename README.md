@@ -2,7 +2,7 @@
 
 MovieSpotter is an Android app that displays the current most popular movies!
 
-![screenshot](public/images/moviespotter_screenshot-resize.png)
+![screenshot](public/images/moviespotter_screenshot2.0-resize.png)
 
 [Video Walkthrough and Demo on YouTube](https://www.youtube.com/watch?v=I44hxRAaM9Y)
 
