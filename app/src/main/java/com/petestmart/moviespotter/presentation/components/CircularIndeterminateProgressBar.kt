@@ -32,7 +32,7 @@ fun CircularIndeterminateProgressBar(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-                color = MaterialTheme.colors.primary
+                color = MaterialTheme.colors.secondary
             )
         }
     }
