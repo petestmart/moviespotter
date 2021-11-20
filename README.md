@@ -16,18 +16,9 @@ If you're having trouble downloading you may have Blocked Third-Party Cookies: [
 * REST API from [The Movie Database](https://developers.themoviedb.org/3/)
 * Retrofit2
 * OkHttp3
+* Glide
+* Jetpack Compose
+* Hilt 
 * AndroidX JUnit
 * Espresso
-* Jetpack Compose Libraries
 * Full list of dependencies is in the build.gradle file
-
-
-## Requirements:
-* Write the app primarily in Kotlin, but at least one file must be written in Java.
-* Retrieve data from a REST or GraphQL API and display it in the app.
-* Use modern networking libraries, including Retrofit and OkHttp3
-* Handle loading and error states
-* Use both Jetpack Compose UI and legacy .xml layout files, in any proportion.
-* Utilize Jetpack libraries when applicable
-* Write a unit test using AndroidX JUnit
-* Write an automated UI test using Espresso
