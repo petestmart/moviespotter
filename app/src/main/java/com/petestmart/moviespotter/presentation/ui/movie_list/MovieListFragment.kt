@@ -58,7 +58,7 @@ class MovieListFragment : Fragment() {
                             SearchAppBar(
                                 query = query,
                                 onQueryChanged = viewModel::onQueryChanged,
-                                onExecuteSearch = viewModel::newSearch,
+                                onExecuteSearch = viewModel::onTriggerEvent,
                                 categoryScrollPosition = viewModel.categoryScrollPosition,
                                 selectedCategory = selectedCategory,
                                 selectedGenreId = selectedGenreId,
@@ -95,7 +95,7 @@ class MovieListFragment : Fragment() {
                                         viewModel
                                             .onChangeMovieScrollPosition(index)
                                         if((index + 1) >= (page * PAGE_SIZE) && !loading){
-                                                viewModel.nextPage()
+                                                viewModel.onTriggerEvent(MovieListEvent.NextPageEvent)
                                         }
                                         MovieCard(movie = movie, onClick = {})
                                     }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petestmart.moviespotter.domain.model.Movie
+import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent.*
 import com.petestmart.moviespotter.repository.MovieRepository
 import com.petestmart.moviespotter.util.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,27 +40,45 @@ constructor(
         newCategorySearch(null)
     }
 
-    fun newSearch() {
+    fun onTriggerEvent(event: MovieListEvent) {
         viewModelScope.launch {
-            loading.value = true
-            resetSearchState()
-            clearSelectedCategory()
-            delay(1000)
-            val result = repository.search(
-                token = token,
-                includeAdult = false,
-                includeVideo = false,
-                query = query.value,
-                page = 1,
-            )
-            movies.value = result
-            loading.value = false
+            try {
+                when (event) {
+                    is NewSearchEvent -> {
+                        newSearch()
+                    }
+                    is NextPageEvent -> {
+                        nextPage()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "onTriggerEvent: Exception: $e, ${e.cause}")
+            }
         }
+    }
+
+    private suspend fun newSearch() {
+        loading.value = true
+        resetSearchState()
+        clearSelectedCategory()
+        delay(1000)
+        val result = repository.search(
+            token = token,
+            includeAdult = false,
+            includeVideo = false,
+            query = query.value,
+            page = 1,
+        )
+        movies.value = result
+        loading.value = false
     }
 
     fun newCategorySearch(genreId: Int?) {
         viewModelScope.launch {
-            Log.d(TAG, "nextPage: newCategorySearch / selectedCategory: ${selectedCategory.value} / ${selectedCategory}")
+            Log.d(
+                TAG,
+                "nextPage: newCategorySearch / selectedCategory: ${selectedCategory.value} / ${selectedCategory}"
+            )
             loading.value = true
             resetSearchState()
             delay(1000)
@@ -80,56 +99,57 @@ constructor(
     /**
      * Append new movies to the current list of movies
      */
-    private fun appendMovies(movies: List<Movie>){
+    private fun appendMovies(movies: List<Movie>) {
         val current = ArrayList(this.movies.value)
         current.addAll(movies)
         this.movies.value = current
     }
 
-    fun nextPage() {
-        viewModelScope.launch {
-            // prevent duplicate events due to recompose happening too quickly
-            if((movieListScrollPosition + 1) >= (page.value * PAGE_SIZE)){
+    private suspend fun nextPage() {
+        // prevent duplicate events due to recompose happening too quickly
+        if ((movieListScrollPosition + 1) >= (page.value * PAGE_SIZE)) {
 
-                loading.value = true
-                incrementPage()
-                Log.d(TAG, "nextPage: triggered ${page.value}")
+            loading.value = true
+            incrementPage()
+            Log.d(TAG, "nextPage: triggered ${page.value}")
 
-                delay(1000)
+            delay(1000)
 
-                if (page.value > 1) {
-                    Log.d(TAG, "nextPage: query = ${query.value}")
-                    if(query.value == null || query.value == ""){
-                        Log.d(TAG, "nextPage: categoryIf / selectedCategory.value = ${selectedCategory.value}")
-                        val result = repository.category(
-                            token = token,
-                            language = "en-US",
-                            sortBy = "popularity.desc",
-                            includeAdult = false,
-                            includeVideo = false,
-                            page = page.value,
-                            genreId = selectedGenreId.value,
-                        )
-                        Log.d(TAG, "nextPage category: $result")
-                        appendMovies(result)
-                    } else {
-                        val result = repository.search(
-                            token = token,
-                            page = page.value,
-                            query = query.value,
-                            includeAdult = false,
-                            includeVideo = false,
-                        )
-                        Log.d(TAG, "nextPage search: $result")
-                        appendMovies(result)
-                    }
+            if (page.value > 1) {
+                Log.d(TAG, "nextPage: query = ${query.value}")
+                if (query.value == null || query.value == "") {
+                    Log.d(
+                        TAG,
+                        "nextPage: categoryIf / selectedCategory.value = ${selectedCategory.value}"
+                    )
+                    val result = repository.category(
+                        token = token,
+                        language = "en-US",
+                        sortBy = "popularity.desc",
+                        includeAdult = false,
+                        includeVideo = false,
+                        page = page.value,
+                        genreId = selectedGenreId.value,
+                    )
+                    Log.d(TAG, "nextPage category: $result")
+                    appendMovies(result)
+                } else {
+                    val result = repository.search(
+                        token = token,
+                        page = page.value,
+                        query = query.value,
+                        includeAdult = false,
+                        includeVideo = false,
+                    )
+                    Log.d(TAG, "nextPage search: $result")
+                    appendMovies(result)
                 }
-                loading.value = false
             }
+            loading.value = false
         }
     }
 
-    private fun incrementPage(){
+    private fun incrementPage() {
         page.value = page.value + 1
     }
 
