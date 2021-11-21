@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory
+import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent
 import com.petestmart.moviespotter.presentation.ui.movie_list.getAllMovieCategories
 import kotlin.reflect.KFunction1
 
@@ -35,7 +36,7 @@ import kotlin.reflect.KFunction1
 fun SearchAppBar(
     query: String,
     onQueryChanged: (String) -> Unit,
-    onExecuteSearch: () -> Unit,
+    onExecuteSearch: KFunction1<MovieListEvent, Unit>,
     categoryScrollPosition: Int,
     selectedCategory: MovieCategory?,
     selectedGenreId: Int?,
@@ -89,7 +90,7 @@ fun SearchAppBar(
                     },
 
                     keyboardActions = KeyboardActions(onSearch = {
-                        onExecuteSearch()
+                        onExecuteSearch(MovieListEvent.NewSearchEvent)
                         keyboardController?.hide()
                     }),
                     textStyle = TextStyle(
