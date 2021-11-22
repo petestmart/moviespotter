@@ -1,30 +1,43 @@
 package com.petestmart.moviespotter.presentation.ui.movie_list
 
+import android.os.Bundle
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.savedstate.SavedStateRegistryOwner
 import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent.*
 import com.petestmart.moviespotter.repository.MovieRepository
 import com.petestmart.moviespotter.util.TAG
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import junit.runner.Version.id
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
-import kotlin.reflect.KMutableProperty0
 
 const val PAGE_SIZE = 20
+
+const val STATE_KEY_PAGE = "movie.state.page.key"
+const val STATE_KEY_QUERY = "movie.state.query.key"
+const val STATE_KEY_LIST_POSITION = "movie.state.query.list_position"
+const val STATE_KEY_SELECTED_CATEGORY = "movie.state.query.select_category"
 
 @HiltViewModel
 class MovieListViewModel
 @Inject
+//@AssistedInject
 constructor(
     private val repository: MovieRepository,
     @Named("api_key") private val token: String,
+//    @Assisted private val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
@@ -37,7 +50,24 @@ constructor(
     var movieListScrollPosition = 0
 
     init {
-        newCategorySearch(null)
+        savedStateHandle.get<Int>(STATE_KEY_PAGE)?.let { p ->
+            setPage(p)
+        }
+        savedStateHandle.get<String>(STATE_KEY_QUERY)?.let { q ->
+            setQuery(q)
+        }
+        savedStateHandle.get<Int>(STATE_KEY_LIST_POSITION)?.let { p ->
+            setListScrollPosition(p)
+        }
+        savedStateHandle.get<MovieCategory>(STATE_KEY_SELECTED_CATEGORY)?.let { c ->
+            setSelectedCategory(c)
+        }
+
+        if(movieListScrollPosition != 0){
+            onTriggerEvent(RestoreStateEvent)
+        } else {
+            onTriggerEvent(NewCategorySearchEvent(null))
+        }
     }
 
     fun onTriggerEvent(event: MovieListEvent) {
@@ -50,9 +80,53 @@ constructor(
                     is NextPageEvent -> {
                         nextPage()
                     }
+                    is NewCategorySearchEvent -> {
+                        newCategorySearch(selectedGenreId.value)
+                    }
+                    is RestoreStateEvent -> {
+                        restoreState()
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "onTriggerEvent: Exception: $e, ${e.cause}")
+            }
+        }
+    }
+
+    private suspend fun restoreState() {
+        // Querying on restore after process death
+        // Future: Query from cache
+        loading.value = true
+        val results: MutableList<Movie> = mutableListOf()
+        for (p in 1..page.value){
+            if (query.value == null || query.value == "") {
+                val result = repository.category(
+                    token = token,
+                    language = "en-US",
+                    sortBy = "popularity.desc",
+                    includeAdult = false,
+                    includeVideo = false,
+                    page = p,
+                    genreId = selectedGenreId.value,
+                )
+                results.addAll(result)
+                if(p == page.value) {
+                    movies.value = results
+                    loading.value = false
+                }
+            } else {
+                val result = repository.search(
+                    token = token,
+                    includeAdult = false,
+                    includeVideo = false,
+                    query = query.value,
+                    page = p,
+                )
+                results.addAll(result)
+                if(p == page.value) {
+                    movies.value = results
+                    loading.value = false
+                }
             }
         }
     }
@@ -150,16 +224,19 @@ constructor(
     }
 
     private fun incrementPage() {
-        page.value = page.value + 1
+        setPage(page.value + 1)
+//        page.value = page.value + 1
     }
 
     fun onChangeMovieScrollPosition(position: Int) {
-        movieListScrollPosition = position
+//        movieListScrollPosition = position
+        setListScrollPosition(position = position)
     }
 
     fun onSelectedCategoryChanged(category: Int?) {
         val newCategory = getMovieCategory(category)
-        selectedCategory.value = newCategory
+        setSelectedCategory(newCategory)
+//        selectedCategory.value = newCategory
         newCategorySearch(category)
     }
 
@@ -170,17 +247,39 @@ constructor(
     }
 
     private fun clearSelectedCategory() {
-        selectedCategory.value = null
+        setSelectedCategory(null)
+//        selectedCategory.value = null
     }
 
     fun onQueryChanged(query: String) {
-        this.query.value = query
+        setQuery(query)
+//        this.query.value = query
     }
 
     fun onChangeCategoryPosition(
         position: Int,
     ) {
         categoryScrollPosition = position
+    }
+
+    private fun setListScrollPosition(position: Int){
+        movieListScrollPosition = position
+        savedStateHandle.set(STATE_KEY_LIST_POSITION, position)
+    }
+
+    private fun setPage(page: Int){
+        this.page.value = page
+        savedStateHandle.set(STATE_KEY_PAGE, page)
+    }
+
+    private fun setSelectedCategory(category: MovieCategory?){
+        selectedCategory.value = category
+        savedStateHandle.set(STATE_KEY_SELECTED_CATEGORY, category)
+    }
+
+    private fun setQuery(query: String){
+        this.query.value = query
+        savedStateHandle.set(STATE_KEY_QUERY, query)
     }
 }
 
