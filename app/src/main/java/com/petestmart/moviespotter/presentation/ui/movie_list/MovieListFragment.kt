@@ -17,12 +17,14 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.petestmart.moviespotter.presentation.BaseApplication
 import com.petestmart.moviespotter.presentation.components.CircularIndeterminateProgressBar
 import com.petestmart.moviespotter.presentation.components.MovieCard
 import com.petestmart.moviespotter.presentation.components.SearchAppBar
 import com.petestmart.moviespotter.presentation.components.ShimmerMovieCardItem
 import com.petestmart.moviespotter.presentation.theme.AppTheme
+import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListViewModel.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -70,9 +72,9 @@ class MovieListFragment : Fragment() {
                                 }
                             )
                         },
-                        bottomBar = {
+//                        bottomBar = {
 //                            BottomNavBar()
-                        },
+//                        },
 //                        drawerContent = {
 //                            LeftDrawer()
 //                        }
