@@ -51,7 +51,7 @@ class MovieListFragment : Fragment() {
                     val movies = viewModel.movies.value
                     val query = viewModel.query.value
                     val selectedCategory = viewModel.selectedCategory.value
-                    val selectedGenreId = viewModel.selectedGenreId.value
+                    val selectedGenreId = viewModel.selectedGenreId
                     val loading = viewModel.loading.value
                     val page = viewModel.page.value
 
@@ -97,7 +97,7 @@ class MovieListFragment : Fragment() {
                                         viewModel
                                             .onChangeMovieScrollPosition(index)
                                         if((index + 1) >= (page * PAGE_SIZE) && !loading){
-                                                viewModel.onTriggerEvent(MovieListEvent.NextPageEvent)
+                                                viewModel.onTriggerEvent(MovieListEvent.NextPageEvent(selectedGenreId))
                                         }
                                         MovieCard(movie = movie, onClick = {})
                                     }
