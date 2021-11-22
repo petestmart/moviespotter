@@ -149,14 +149,6 @@ constructor(
 
     fun newCategorySearch(genreId: Int?) {
         viewModelScope.launch {
-            Log.d(
-                TAG,
-                "nextPage: newCategorySearch / " +
-                        "selectedCategory: ${selectedCategory.value} / " +
-                        "selectedGenreId: ${selectedGenreId} / " +
-                        "genreId: ${genreId}"
-
-            )
             loading.value = true
             resetSearchState()
             delay(1000)
