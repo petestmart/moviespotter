@@ -1,6 +1,7 @@
 # moviespotter
 
-MovieSpotter is an Android app to search for details about your favorite movies!
+MovieSpotter is an Android app to search for details about your favorite movies! 
+See popular movies, select by genre, or search for your favorites!
 
 ![screenshot](public/images/moviespotter_screenshot2.0-resize.png)
 
