@@ -6,7 +6,7 @@ sealed class MovieListEvent{
 
     class NewCategorySearchEvent (genreId: Int?) : MovieListEvent()
 
-    object NextPageEvent: MovieListEvent()
+    class NextPageEvent (genreId: Int?): MovieListEvent()
 
     // restore after process death
     object RestoreStateEvent: MovieListEvent()

@@ -22,4 +22,6 @@ data class MovieDto(
     @SerializedName("vote_average")
     var voteAverage: Double? = null,
 
+//    @SerializedName("genre_ids")
+//    var genreIds: List<GenreId> _genreId: Any = new ArrayList<GenreId>()
     )
