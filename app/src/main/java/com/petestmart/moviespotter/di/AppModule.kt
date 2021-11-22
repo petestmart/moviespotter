@@ -16,7 +16,6 @@ object AppModule {
     @Singleton
     @Provides
     fun provideApplication(@ApplicationContext app: Context): BaseApplication {
-        println("BIGCHECK AppModule: provideApplication")
         return app as BaseApplication
     }
 

@@ -43,7 +43,7 @@ constructor(
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
     val query = mutableStateOf("")
     val selectedCategory: MutableState<MovieCategory?> = mutableStateOf(null)
-    val selectedGenreId = mutableStateOf(null)
+    var selectedGenreId: Int? = null
     var categoryScrollPosition: Int = 0
     val loading = mutableStateOf(false)
     val page = mutableStateOf(1)
@@ -78,10 +78,10 @@ constructor(
                         newSearch()
                     }
                     is NextPageEvent -> {
-                        nextPage()
+                        nextPage(selectedGenreId)
                     }
                     is NewCategorySearchEvent -> {
-                        newCategorySearch(selectedGenreId.value)
+                        newCategorySearch(selectedGenreId)
                     }
                     is RestoreStateEvent -> {
                         restoreState()
@@ -107,7 +107,7 @@ constructor(
                     includeAdult = false,
                     includeVideo = false,
                     page = p,
-                    genreId = selectedGenreId.value,
+                    genreId = selectedGenreId,
                 )
                 results.addAll(result)
                 if(p == page.value) {
@@ -151,7 +151,11 @@ constructor(
         viewModelScope.launch {
             Log.d(
                 TAG,
-                "nextPage: newCategorySearch / selectedCategory: ${selectedCategory.value} / ${selectedCategory}"
+                "nextPage: newCategorySearch / " +
+                        "selectedCategory: ${selectedCategory.value} / " +
+                        "selectedGenreId: ${selectedGenreId} / " +
+                        "genreId: ${genreId}"
+
             )
             loading.value = true
             resetSearchState()
@@ -179,7 +183,7 @@ constructor(
         this.movies.value = current
     }
 
-    private suspend fun nextPage() {
+    private suspend fun nextPage(genreId: Int?) {
         // prevent duplicate events due to recompose happening too quickly
         if ((movieListScrollPosition + 1) >= (page.value * PAGE_SIZE)) {
 
@@ -194,7 +198,10 @@ constructor(
                 if (query.value == null || query.value == "") {
                     Log.d(
                         TAG,
-                        "nextPage: categoryIf / selectedCategory.value = ${selectedCategory.value}"
+                        "nextPage: categoryIf / " +
+                                "selectedCategory: ${selectedCategory.value} / " +
+                                "selectedGenreId: ${selectedGenreId} / " +
+                                "genreId: $genreId"
                     )
                     val result = repository.category(
                         token = token,
@@ -203,7 +210,7 @@ constructor(
                         includeAdult = false,
                         includeVideo = false,
                         page = page.value,
-                        genreId = selectedGenreId.value,
+                        genreId = selectedGenreId,
                     )
                     Log.d(TAG, "nextPage category: $result")
                     appendMovies(result)
@@ -234,6 +241,7 @@ constructor(
     }
 
     fun onSelectedCategoryChanged(category: Int?) {
+        selectedGenreId = category
         val newCategory = getMovieCategory(category)
         setSelectedCategory(newCategory)
 //        selectedCategory.value = newCategory
