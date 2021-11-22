@@ -1,6 +1,6 @@
 # moviespotter
 
-MovieSpotter is an Android app that displays the current most popular movies!
+MovieSpotter is an Android app to search for details about your favorite movies!
 
 ![screenshot](public/images/moviespotter_screenshot2.0-resize.png)
 
