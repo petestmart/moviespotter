@@ -20,10 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.petestmart.moviespotter.presentation.BaseApplication
 import com.petestmart.moviespotter.presentation.components.*
 import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.theme.AppTheme
+import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent.*
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListViewModel.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -76,7 +78,7 @@ class MovieListFragment : Fragment() {
 //                                                )
 //                                        }
 //                                    } else {
-                                        viewModel.onTriggerEvent(MovieListEvent.NewSearchEvent)
+                                        viewModel.onTriggerEvent(NewSearchEvent)
 //                                    }
                                 },
                                 categoryScrollPosition = viewModel.categoryScrollPosition,
@@ -102,43 +104,56 @@ class MovieListFragment : Fragment() {
                             scaffoldState.snackbarHostState
                         }
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(color = MaterialTheme.colors.background)
-                        ) {
-
-                            if (loading && movies.isEmpty()) {
-                                ShimmerMovieCardItem(
-                                    imageHeight = 250.dp, padding = 8.dp
-                                )
-                            } else {
-                                LazyColumn {
-                                    itemsIndexed(
-                                        items = movies
-                                    ) { index, movie ->
-                                        viewModel
-                                            .onChangeMovieScrollPosition(index)
-                                        if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
-                                            viewModel.onTriggerEvent(
-                                                MovieListEvent.NextPageEvent(
-                                                    selectedGenreId
-                                                )
-                                            )
-                                        }
-                                        MovieCard(movie = movie, onClick = {})
-                                    }
-                                }
-                            }
-                            CircularIndeterminateProgressBar(isDisplayed = loading)
-                            DefaultSnackbar(
-                                snackbarHostState = scaffoldState.snackbarHostState,
-                                onDismiss = {
-                                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
-                                },
-                                modifier = Modifier.align(Alignment.BottomCenter)
-                            )
-                        }
+                        MovieList(
+                            loading = loading,
+                            movies = movies,
+                            onChangeMovieScrollPosition = viewModel::onChangeMovieScrollPosition,
+                            page = page,
+                            onNextPage = {
+                                viewModel.onTriggerEvent(NextPageEvent(selectedGenreId))
+                            },
+                            selectedGenreId = selectedGenreId,
+                            scaffoldState = scaffoldState,
+                            snackbarController = snackbarController,
+                            navController = findNavController()
+                        )
+//                        Box(
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .background(color = MaterialTheme.colors.background)
+//                        ) {
+//
+//                            if (loading && movies.isEmpty()) {
+//                                ShimmerMovieCardItem(
+//                                    imageHeight = 250.dp, padding = 8.dp
+//                                )
+//                            } else {
+//                                LazyColumn {
+//                                    itemsIndexed(
+//                                        items = movies
+//                                    ) { index, movie ->
+//                                        viewModel
+//                                            .onChangeMovieScrollPosition(index)
+//                                        if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
+//                                            viewModel.onTriggerEvent(
+//                                                MovieListEvent.NextPageEvent(
+//                                                    selectedGenreId
+//                                                )
+//                                            )
+//                                        }
+//                                        MovieCard(movie = movie, onClick = {})
+//                                    }
+//                                }
+//                            }
+//                            CircularIndeterminateProgressBar(isDisplayed = loading)
+//                            DefaultSnackbar(
+//                                snackbarHostState = scaffoldState.snackbarHostState,
+//                                onDismiss = {
+//                                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+//                                },
+//                                modifier = Modifier.align(Alignment.BottomCenter)
+//                            )
+//                        }
                     }
                 }
             }

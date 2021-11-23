@@ -35,15 +35,11 @@ fun DefaultSnackbar(
                     }
                 }
             ) {
-//                Surface(
-//
-//                ) {
-                    Text(
-                        text = data.message,
-                        style = MaterialTheme.typography.body2,
-                        color = Color.White
-                    )
-//                }
+                Text(
+                    text = data.message,
+                    style = MaterialTheme.typography.body2,
+                    color = Color.White
+                )
             }
         },
         modifier = modifier

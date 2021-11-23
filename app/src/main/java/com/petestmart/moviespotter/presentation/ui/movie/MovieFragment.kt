@@ -7,35 +7,46 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType.Companion.Sp
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.ui.core.TextUnit.Companion.Sp
-import androidx.ui.core.TextUnitType
-import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListViewModel
+import androidx.fragment.app.viewModels
+import com.petestmart.moviespotter.presentation.ui.movie.MovieEvent.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieFragment : Fragment() {
+
+    private val viewModel: MovieViewModel by viewModels()
+
+    private var movieId: MutableState<Int> = mutableStateOf(-1)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.getInt("movieId")?.let { mId ->
+            viewModel.onTriggerEvent(GetMovieEvent(mId))
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return ComposeView(requireContext()).apply{
+        return ComposeView(requireContext()).apply {
             setContent {
+
+                val loading = viewModel.loading.value
+                val movie = viewModel.movie.value
+
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "This is Movie Fragment",
-                        style = TextStyle(
-
-                        )
+                        text = movie?.let {
+                            "Selected Movie Title: ${movie.title}"
+                        }?: "Loading...",
                     )
                 }
             }
