@@ -10,6 +10,9 @@ data class MovieDto(
     @SerializedName("title")
     var title: String? = null,
 
+    @SerializedName("tagline")
+    var tagline: String? = null,
+
     @SerializedName("overview")
     var overview: String? = null,
 
@@ -22,6 +25,12 @@ data class MovieDto(
     @SerializedName("vote_average")
     var voteAverage: Double? = null,
 
-//    @SerializedName("genre_ids")
-//    var genreIds: List<GenreId> _genreId: Any = new ArrayList<GenreId>()
-    )
+    @SerializedName("runtime")
+    var runtime: Int? = null,
+
+    @SerializedName("budget")
+    var budget: Int? = null,
+
+    @SerializedName("status")
+    var status: String? = null,
+)
