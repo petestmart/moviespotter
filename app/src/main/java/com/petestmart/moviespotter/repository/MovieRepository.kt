@@ -12,6 +12,12 @@ interface MovieRepository {
         page: Int
     ): List<Movie>
 
+    suspend fun get(
+        id: Int,
+        token: String,
+        language: String,
+    ): Movie
+
     suspend fun category(
         token: String,
         language: String,
