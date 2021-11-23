@@ -1,5 +1,7 @@
 package com.petestmart.moviespotter.presentation.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -17,9 +19,12 @@ import androidx.compose.ui.unit.dp
 import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.util.DEFAULT_MOVIE_IMAGE
 import com.petestmart.moviespotter.util.loadPicture
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 const val IMAGE_HEIGHT = 260
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MovieView(
     movie: Movie,
@@ -78,7 +83,15 @@ fun MovieView(
                                 .padding(bottom = 8.dp)
                         )
                         Column(){
-                            val releaseDate = movie.releaseDate.toString()
+                            var unformattedReleaseDate = movie.releaseDate
+                            println("DATEdebug unformattedReleaseDate $unformattedReleaseDate")
+                            var parsedDate = LocalDate.parse(unformattedReleaseDate.toString())
+                            println("DATEdebug parsedDate $parsedDate")
+                            var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+                            println("DATEdebug formatter $formatter")
+
+
+                            val releaseDate = formatter.format(parsedDate)
                             val runtime = movie.runtime.toString()
                             val status = movie.status.toString()
                             Text(
