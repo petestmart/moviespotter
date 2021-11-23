@@ -1,7 +1,9 @@
 package com.petestmart.moviespotter.network
 
+import com.petestmart.moviespotter.network.model.MovieDto
 import com.petestmart.moviespotter.network.responses.MovieSearchResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieService {
@@ -14,6 +16,13 @@ interface MovieService {
         @Query("query") query: String,
         @Query("page") page: Int
     ) : MovieSearchResponse
+
+    @GET("3/movie/{movie_id}")
+    suspend fun get(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") token: String,
+        @Query("language") language: String,
+    ) : MovieDto
 
     @GET("3/discover/movie")
     suspend fun category(
