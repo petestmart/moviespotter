@@ -1,9 +1,11 @@
 package com.petestmart.moviespotter.presentation.ui.movie
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,9 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.petestmart.moviespotter.presentation.BaseApplication
-import com.petestmart.moviespotter.presentation.components.CircularIndeterminateProgressBar
-import com.petestmart.moviespotter.presentation.components.DefaultSnackbar
-import com.petestmart.moviespotter.presentation.components.MovieView
+import com.petestmart.moviespotter.presentation.components.*
 import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.theme.AppTheme
 import com.petestmart.moviespotter.presentation.ui.movie.MovieEvent.*
@@ -49,6 +49,7 @@ class MovieFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,7 +74,7 @@ class MovieFragment : Fragment() {
                                 .fillMaxSize()
                         ){
                             if(loading && movie == null){
-                                Text("Loading...")
+                                ShimmerMovieItem(imageHeight = IMAGE_HEIGHT.dp)
                             } else {
                                 movie?.let {
                                     if(it.id == null){
