@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -43,7 +44,10 @@ fun MovieCard(
             .clickable(onClick = onClick),
         elevation = 8.dp,
     ) {
-        Column() {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
 
             if (movie.posterPath != null) {
                 movie.posterPath?.let { url ->
@@ -54,7 +58,8 @@ fun MovieCard(
                             contentDescription = "Movie Poster",
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(450.dp),
+                                .height(450.dp)
+                                .clip(RoundedCornerShape(percent = 10)),
                             contentScale = ContentScale.Fit
                         )
                     }
@@ -66,8 +71,9 @@ fun MovieCard(
                     contentDescription = "Film Projector",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(450.dp),
-                    contentScale = ContentScale.Fit
+                        .height(450.dp)
+                        .clip(RoundedCornerShape(percent = 10)),
+                    contentScale = ContentScale.Fit,
                 )
             }
 
