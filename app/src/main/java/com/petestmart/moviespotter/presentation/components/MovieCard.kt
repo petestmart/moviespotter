@@ -1,5 +1,7 @@
 package com.petestmart.moviespotter.presentation.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,7 +23,10 @@ import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.util.DEFAULT_MOVIE_IMAGE
 import com.petestmart.moviespotter.util.POSTER_BASE_URL
 import com.petestmart.moviespotter.util.loadPicture
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MovieCard(
     movie: Movie,
@@ -85,8 +90,17 @@ fun MovieCard(
                             text = title,
                             style = MaterialTheme.typography.h2
                         )
+                        var unformattedReleaseDate = movie.releaseDate
+                        println("DATEdebug unformattedReleaseDate $unformattedReleaseDate")
+                        var parsedDate = LocalDate.parse(unformattedReleaseDate.toString())
+                        println("DATEdebug parsedDate $parsedDate")
+                        var formatter = DateTimeFormatter.ofPattern("yyyy")
+                        println("DATEdebug formatter $formatter")
+
+
+                        val releaseDate = formatter.format(parsedDate)
                         Text(
-                            text = movie.releaseDate.toString(),
+                            text = "($releaseDate)",
                             modifier = Modifier
                                 .fillMaxWidth(0.90f)
                                 .wrapContentWidth(Alignment.Start),
