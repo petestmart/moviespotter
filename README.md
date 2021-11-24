@@ -10,6 +10,7 @@ If you're having trouble downloading you may have Blocked Third-Party Cookies: [
 
 ## Version 2.0 Coming Soon
 [Version 2.0 Branch on Github](https://github.com/petestmart/moviespotter/blob/version-2.0/README.md)
+
 [Public Trello Board](https://trello.com/b/2qliTAF2/moviespotter)
 
 ## Technologies
