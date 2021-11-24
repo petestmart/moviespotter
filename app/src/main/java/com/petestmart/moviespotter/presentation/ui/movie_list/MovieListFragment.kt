@@ -52,18 +52,19 @@ class MovieListFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
+                val movies = viewModel.movies.value
+                val query = viewModel.query.value
+                val selectedCategory = viewModel.selectedCategory.value
+                val selectedGenreId = viewModel.selectedGenreId
+                val loading = viewModel.loading.value
+                val page = viewModel.page.value
+                val scaffoldState = rememberScaffoldState()
 
                 AppTheme(
-                    darkTheme = application.isDark.value
+                    darkTheme = application.isDark.value,
+                    displayProgressBar = loading,
+                    scaffoldState = scaffoldState,
                 ) {
-                    val movies = viewModel.movies.value
-                    val query = viewModel.query.value
-                    val selectedCategory = viewModel.selectedCategory.value
-                    val selectedGenreId = viewModel.selectedGenreId
-                    val loading = viewModel.loading.value
-                    val page = viewModel.page.value
-                    val scaffoldState = rememberScaffoldState()
-
                     Scaffold(
                         topBar = {
                             SearchAppBar(
