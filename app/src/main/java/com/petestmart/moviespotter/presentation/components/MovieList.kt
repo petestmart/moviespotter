@@ -1,6 +1,8 @@
 package com.petestmart.moviespotter.presentation.components
 
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,7 @@ import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent
 import com.petestmart.moviespotter.presentation.ui.movie_list.PAGE_SIZE
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MovieList(
     loading: Boolean,
@@ -40,7 +43,7 @@ fun MovieList(
 
         if (loading && movies.isEmpty()) {
             ShimmerMovieCardItem(
-                imageHeight = 250.dp, padding = 8.dp
+                imageHeight = 450.dp, padding = 8.dp
             )
         } else {
             LazyColumn {
@@ -76,13 +79,13 @@ fun MovieList(
                 }
             }
         }
-        CircularIndeterminateProgressBar(isDisplayed = loading)
-        DefaultSnackbar(
-            snackbarHostState = scaffoldState.snackbarHostState,
-            onDismiss = {
-                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
-            },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
+//        CircularIndeterminateProgressBar(isDisplayed = loading)
+//        DefaultSnackbar(
+//            snackbarHostState = scaffoldState.snackbarHostState,
+//            onDismiss = {
+//                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+//            },
+//            modifier = Modifier.align(Alignment.BottomCenter)
+//        )
     }
 }

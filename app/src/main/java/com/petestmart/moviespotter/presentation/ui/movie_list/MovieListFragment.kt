@@ -1,9 +1,11 @@
 package com.petestmart.moviespotter.presentation.ui.movie_list
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,6 +43,7 @@ class MovieListFragment : Fragment() {
 
     private val snackbarController = SnackbarController(lifecycleScope)
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @ExperimentalComposeUiApi
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,37 +52,26 @@ class MovieListFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
+                val movies = viewModel.movies.value
+                val query = viewModel.query.value
+                val selectedCategory = viewModel.selectedCategory.value
+                val selectedGenreId = viewModel.selectedGenreId
+                val loading = viewModel.loading.value
+                val page = viewModel.page.value
+                val scaffoldState = rememberScaffoldState()
 
                 AppTheme(
-                    darkTheme = application.isDark.value
+                    darkTheme = application.isDark.value,
+                    displayProgressBar = loading,
+                    scaffoldState = scaffoldState,
                 ) {
-                    val movies = viewModel.movies.value
-                    val query = viewModel.query.value
-                    val selectedCategory = viewModel.selectedCategory.value
-                    val selectedGenreId = viewModel.selectedGenreId
-                    val loading = viewModel.loading.value
-                    val page = viewModel.page.value
-                    val scaffoldState = rememberScaffoldState()
-
                     Scaffold(
                         topBar = {
                             SearchAppBar(
                                 query = query,
                                 onQueryChanged = viewModel::onQueryChanged,
-                                onExecuteSearch =
-                                {
-//                                    if (viewModel.selectedCategory.value?.value == "Animation") {
-//                                        snackbarController.getScope().launch {
-//                                            snackbarController
-//                                                .showSnackbar(
-//                                                    scaffoldState = scaffoldState,
-//                                                    message = "Selected Animation",
-//                                                    actionLabel = "Hide",
-//                                                )
-//                                        }
-//                                    } else {
-                                        viewModel.onTriggerEvent(NewSearchEvent)
-//                                    }
+                                onExecuteSearch = {
+                                    viewModel.onTriggerEvent(NewSearchEvent)
                                 },
                                 categoryScrollPosition = viewModel.categoryScrollPosition,
                                 selectedCategory = selectedCategory,
@@ -117,43 +109,6 @@ class MovieListFragment : Fragment() {
                             snackbarController = snackbarController,
                             navController = findNavController()
                         )
-//                        Box(
-//                            modifier = Modifier
-//                                .fillMaxSize()
-//                                .background(color = MaterialTheme.colors.background)
-//                        ) {
-//
-//                            if (loading && movies.isEmpty()) {
-//                                ShimmerMovieCardItem(
-//                                    imageHeight = 250.dp, padding = 8.dp
-//                                )
-//                            } else {
-//                                LazyColumn {
-//                                    itemsIndexed(
-//                                        items = movies
-//                                    ) { index, movie ->
-//                                        viewModel
-//                                            .onChangeMovieScrollPosition(index)
-//                                        if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
-//                                            viewModel.onTriggerEvent(
-//                                                MovieListEvent.NextPageEvent(
-//                                                    selectedGenreId
-//                                                )
-//                                            )
-//                                        }
-//                                        MovieCard(movie = movie, onClick = {})
-//                                    }
-//                                }
-//                            }
-//                            CircularIndeterminateProgressBar(isDisplayed = loading)
-//                            DefaultSnackbar(
-//                                snackbarHostState = scaffoldState.snackbarHostState,
-//                                onDismiss = {
-//                                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
-//                                },
-//                                modifier = Modifier.align(Alignment.BottomCenter)
-//                            )
-//                        }
                     }
                 }
             }
