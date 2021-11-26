@@ -84,12 +84,8 @@ fun MovieView(
                         )
                         Column(){
                             var unformattedReleaseDate = movie.releaseDate
-                            println("DATEdebug unformattedReleaseDate $unformattedReleaseDate")
                             var parsedDate = LocalDate.parse(unformattedReleaseDate.toString())
-                            println("DATEdebug parsedDate $parsedDate")
                             var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-                            println("DATEdebug formatter $formatter")
-
 
                             val releaseDate = formatter.format(parsedDate)
                             val runtime = movie.runtime.toString()
@@ -111,18 +107,6 @@ fun MovieView(
                                 style = MaterialTheme.typography.body2,
                             )
                         }
-//                        Text(
-//                            text = if (releaseDate != null) {
-//                                "Release Date: $releaseDate | Runtime: $runtime min | Status: $status"
-//                            } else {
-//                                "Runtime: $runtime minutes"
-//                            },
-//                            modifier = Modifier
-//                                .fillMaxWidth(0.90f)
-//                                .wrapContentWidth(Alignment.Start)
-//                                .padding(bottom = 8.dp),
-//                            style = MaterialTheme.typography.body2,
-//                        )
                     }
                     Column(
                         modifier = Modifier
