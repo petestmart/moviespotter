@@ -2,9 +2,11 @@ package com.petestmart.moviespotter.presentation.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 
@@ -12,8 +14,10 @@ import androidx.compose.ui.unit.dp
 fun DefaultSnackbar(
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
-    onDismiss: () -> Unit?
-) {
+    onDismiss: () -> Unit?,
+    backgroundColor: Color,
+
+    ) {
     SnackbarHost(
         hostState = snackbarHostState,
         snackbar = { data ->
@@ -33,7 +37,8 @@ fun DefaultSnackbar(
                             )
                         }
                     }
-                }
+                },
+                backgroundColor = backgroundColor,
             ) {
                 Text(
                     text = data.message,

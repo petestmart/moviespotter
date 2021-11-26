@@ -81,7 +81,9 @@ class MovieListFragment : Fragment() {
                                 newCategorySearch = viewModel::newCategorySearch,
                                 onToggleTheme = {
                                     application.toggleTheme()
-                                }
+                                },
+                                snackbarController = snackbarController,
+                                scaffoldState = scaffoldState,
                             )
 
                         },
