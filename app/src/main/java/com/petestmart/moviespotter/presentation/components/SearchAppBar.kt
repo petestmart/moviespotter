@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.petestmart.moviespotter.R
+import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory
 import com.petestmart.moviespotter.presentation.ui.movie_list.getAllMovieCategories
 import kotlin.reflect.KFunction1
@@ -43,11 +44,12 @@ fun SearchAppBar(
     onChangeCategoryPosition: KFunction1<Int, Unit>,
     newCategorySearch: KFunction1<Int?, Unit>,
     onToggleTheme: () -> Unit,
+    scaffoldState: ScaffoldState,
+    snackbarController: SnackbarController,
+
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
-    val DARK_THEME_ICON = R.drawable.ic_baseline_dark_mode_24
-    val LIGHT_THEME_ICON = R.drawable.baseline_light_mode_24
 
     Surface(
         modifier = Modifier
@@ -89,7 +91,15 @@ fun SearchAppBar(
                     },
 
                     keyboardActions = KeyboardActions(onSearch = {
-                        onExecuteSearch()
+                        if (query == ""){
+                            snackbarController.showSnackbar(
+                                scaffoldState = scaffoldState,
+                                message = "Enter a Search Term",
+                                actionLabel = "OK"
+                            )
+                        } else {
+                            onExecuteSearch()
+                        }
                         keyboardController?.hide()
                     }),
                     textStyle = TextStyle(
@@ -134,7 +144,6 @@ fun SearchAppBar(
                             isSelected = selectedCategory == category,
                             onSelectedCategoryChanged = {
                                 onQueryChanged("")
-//                                selectedGenreId = category.id
                                 onSelectedCategoryChanged(category.id)
                                 categoryScrollPosition =
                                     lazyListState.firstVisibleItemIndex

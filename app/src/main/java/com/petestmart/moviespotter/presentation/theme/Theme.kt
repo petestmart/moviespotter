@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
@@ -65,7 +66,8 @@ fun AppTheme (
                 onDismiss = {
                     scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
                 },
-                modifier = Modifier.align(Alignment.BottomCenter)
+                modifier = Modifier.align(Alignment.BottomCenter),
+                backgroundColor = Color.Black
             )
         }
     }
