@@ -97,12 +97,8 @@ fun MovieCard(
                             style = MaterialTheme.typography.h2
                         )
                         var unformattedReleaseDate = movie.releaseDate
-                        println("DATEdebug unformattedReleaseDate $unformattedReleaseDate")
                         var parsedDate = LocalDate.parse(unformattedReleaseDate.toString())
-                        println("DATEdebug parsedDate $parsedDate")
                         var formatter = DateTimeFormatter.ofPattern("yyyy")
-                        println("DATEdebug formatter $formatter")
-
 
                         val releaseDate = formatter.format(parsedDate)
                         Text(
