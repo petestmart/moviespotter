@@ -99,7 +99,7 @@ fun MovieView(
                                 style = MaterialTheme.typography.body2,
                             )
                             Text(
-                                text = "Runtime: $runtime minutes  | Status: $status",
+                                text = "Runtime: $runtime minutes | Status: $status",
                                 modifier = Modifier
                                     .fillMaxWidth(0.90f)
                                     .wrapContentWidth(Alignment.Start)
