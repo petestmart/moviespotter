@@ -44,7 +44,7 @@ fun MovieView(
                         contentDescription = "Movie Poster",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(250.dp),
+                            .height(IMAGE_HEIGHT.dp),
                         contentScale = ContentScale.Fit
                     )
                 }
@@ -56,7 +56,7 @@ fun MovieView(
                 contentDescription = "Film Projector",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp),
+                    .height(IMAGE_HEIGHT.dp),
                 contentScale = ContentScale.Crop
             )
         }
