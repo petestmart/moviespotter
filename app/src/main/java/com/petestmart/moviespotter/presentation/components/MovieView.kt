@@ -44,7 +44,7 @@ fun MovieView(
                         contentDescription = "Movie Poster",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(250.dp),
+                            .height(IMAGE_HEIGHT.dp),
                         contentScale = ContentScale.Fit
                     )
                 }
@@ -56,7 +56,7 @@ fun MovieView(
                 contentDescription = "Film Projector",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp),
+                    .height(IMAGE_HEIGHT.dp),
                 contentScale = ContentScale.Crop
             )
         }
@@ -99,7 +99,7 @@ fun MovieView(
                                 style = MaterialTheme.typography.body2,
                             )
                             Text(
-                                text = "Runtime: $runtime minutes  | Status: $status",
+                                text = "Runtime: $runtime minutes | Status: $status",
                                 modifier = Modifier
                                     .fillMaxWidth(0.90f)
                                     .wrapContentWidth(Alignment.Start)
