@@ -89,7 +89,8 @@ fun SearchAppBar(
                                 }
                         )
                     },
-
+                    singleLine = true,
+                    maxLines = 1,
                     keyboardActions = KeyboardActions(onSearch = {
                         if (query == ""){
                             snackbarController.showSnackbar(
@@ -103,8 +104,7 @@ fun SearchAppBar(
                         keyboardController?.hide()
                     }),
                     textStyle = TextStyle(
-                        color =
-                        MaterialTheme.colors.onSurface
+                        color = MaterialTheme.colors.onSurface
                     ),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = MaterialTheme.colors.surface,

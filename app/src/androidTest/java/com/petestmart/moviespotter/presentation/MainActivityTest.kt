@@ -21,12 +21,4 @@ class MainActivityTest{
 
         onView(withId(R.id.main)).check(matches(isDisplayed()))
     }
-
-    @Test
-    fun test_isMainNavHostFragmentInView() {
-
-        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
-
-        onView(withId(R.id.main_nav_host_fragment)).check(matches(isDisplayed()))
-    }
 }
