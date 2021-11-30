@@ -30,6 +30,7 @@ import com.petestmart.moviespotter.presentation.components.util.SnackbarControll
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieCategory
 import com.petestmart.moviespotter.presentation.ui.movie_list.getAllMovieCategories
 import kotlin.reflect.KFunction1
+import kotlin.reflect.KSuspendFunction1
 
 @ExperimentalComposeUiApi
 @Composable
@@ -47,7 +48,7 @@ fun SearchAppBar(
     scaffoldState: ScaffoldState,
     snackbarController: SnackbarController,
 
-) {
+    ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -69,6 +70,13 @@ fun SearchAppBar(
                         .padding(8.dp),
                     value = query,
                     onValueChange = { newValue ->
+                        if (newValue.contains("\n")){
+                            newValue.replace("\n", "")
+                            println("DEBUG-ONQUERYCHANGED: " + newValue)
+                            onExecuteSearch()
+                            keyboardController?.hide()
+                            focusManager.clearFocus()
+                        }
                         onQueryChanged(newValue)
                     },
                     label = {
@@ -102,6 +110,7 @@ fun SearchAppBar(
                             onExecuteSearch()
                         }
                         keyboardController?.hide()
+                        focusManager.clearFocus()
                     }),
                     textStyle = TextStyle(
                         color = MaterialTheme.colors.onSurface

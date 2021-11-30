@@ -6,19 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,9 +19,7 @@ import com.petestmart.moviespotter.presentation.components.*
 import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.theme.AppTheme
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent.*
-import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListViewModel.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -90,9 +79,9 @@ class MovieListFragment : Fragment() {
 //                        bottomBar = {
 //                            BottomNavBar()
 //                        },
-//                        drawerContent = {
-//                            LeftDrawer()
-//                        },
+                        drawerContent = {
+                            LeftDrawer()
+                        },
                         scaffoldState = scaffoldState,
                         snackbarHost = {
                             scaffoldState.snackbarHostState
