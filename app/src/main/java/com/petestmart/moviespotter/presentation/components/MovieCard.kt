@@ -58,8 +58,7 @@ fun MovieCard(
                             contentDescription = "Movie Poster",
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(450.dp)
-                                .clip(RoundedCornerShape(percent = 10)),
+                                .height(450.dp),
                             contentScale = ContentScale.Fit
                         )
                     }
