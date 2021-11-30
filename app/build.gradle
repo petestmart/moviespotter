@@ -7,6 +7,11 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 6
+def versionBuild = 6 // Bump for dogfood builds, public betas, etc.
+
 android {
     compileSdk 31
 
@@ -18,8 +23,9 @@ android {
         applicationId 'com.petestmart.moviespotter'
         minSdk 21
         targetSdk 31
-        versionCode 3
-        versionName '1.0.2'
+
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables {

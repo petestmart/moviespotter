@@ -253,6 +253,11 @@ constructor(
 
     fun onQueryChanged(query: String) {
         setQuery(query)
+//        if(query.contains("\n") ){
+//            query.replace("\n", "")
+////            newSearch()
+//            println("DEBUG-ONQUERYCHANGED")
+//        }
 //        this.query.value = query
     }
 
