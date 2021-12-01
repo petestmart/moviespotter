@@ -1,5 +1,8 @@
 package com.petestmart.moviespotter
 
+
+//// DEPRECATED
+
 //import androidx.test.core.app.ActivityScenario
 //import androidx.test.espresso.Espresso.onView
 //import androidx.test.espresso.IdlingRegistry
