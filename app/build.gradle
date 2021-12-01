@@ -89,7 +89,6 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.activity:activity-compose:1.3.1'
     implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
@@ -104,12 +103,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    implementation 'io.coil-kt:coil-compose:1.3.1'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
@@ -119,6 +116,14 @@ dependencies {
     androidTestImplementation "androidx.test:core:$androidx_test_version"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_test_version"
 
+    // app compat
+    def app_compat_version = '1.3.1'
+    implementation "androidx.appcompat:appcompat:$app_compat_version"
+
+    // coil
+    def coil_version = '1.3.1'
+    implementation "io.coil-kt:coil-compose:$coil_version"
+
     // Compose Test (defined in project gradle)
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
@@ -126,6 +131,7 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     // Constraint Layout (has different versioning than Jetpack Compose)
     def constraintlayout_compose_version = '1.0.0-beta02'
@@ -144,16 +150,20 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     // Glide
-    def glide_version = '4.10.0'
+    def glide_version = '4.11.0'
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     // Hilt (defined in project gradle)
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // Hilt Lifecycle Viewmodel
+    def hilt_lifecycle_viewmodel_version = '1.0.0-alpha03'
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_viewmodel_version"
 
     // Hilt Navigation (Different Version than Hilt)
-    def hilt_navigation_version = '1.0.0'
+    def hilt_navigation_version = '1.0.0-alpha03'
     implementation "androidx.hilt:hilt-navigation-fragment:$hilt_navigation_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_navigation_version"
     implementation "androidx.hilt:hilt-work:$hilt_navigation_version"
