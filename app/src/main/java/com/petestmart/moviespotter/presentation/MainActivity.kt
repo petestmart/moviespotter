@@ -10,9 +10,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.*
+import androidx.navigation.navArgument
 import com.petestmart.moviespotter.presentation.navigation.Screen
 import com.petestmart.moviespotter.presentation.ui.movie.MovieDetailScreen
 import com.petestmart.moviespotter.presentation.ui.movie.MovieViewModel
@@ -41,17 +41,23 @@ open class MainActivity : AppCompatActivity() {
                         isDarkTheme = (application as BaseApplication).isDark.value,
                         onToggleTheme = (application as BaseApplication)::toggleTheme,
                         viewModel = viewModel,
+                        onNavigateToMovieDetailScreen = navController::navigate,
                     )
                 }
 
-                composable(route = Screen.MovieDetail.route) { navBackStackEntry ->
+                composable(
+                    route = Screen.MovieDetail.route + "/{movieId}",
+                    arguments = listOf(navArgument("movieId") {
+                        type = NavType.IntType
+                    })
+                ) { navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
                     val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current)
                     val viewModel: MovieViewModel =
                         viewModel(viewModelStoreOwner, "MovieDetailViewModel", factory)
                     MovieDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
-                        movieId = 459151,
+                        movieId = navBackStackEntry.arguments?.getInt("movieId"),
                         viewModel = viewModel,
                     )
                 }
