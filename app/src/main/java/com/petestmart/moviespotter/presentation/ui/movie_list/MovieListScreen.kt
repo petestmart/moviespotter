@@ -20,6 +20,7 @@ import com.petestmart.moviespotter.util.TAG
 fun MovieListScreen(
     isDarkTheme: Boolean,
     onToggleTheme: () -> Unit,
+    onNavigateToMovieDetailScreen: (String) -> Unit,
     viewModel: MovieListViewModel,
 ) {
     Log.d(TAG, "MovieListScreen: ${viewModel}")
@@ -81,6 +82,7 @@ fun MovieListScreen(
                 scaffoldState = scaffoldState,
 //                snackbarController = TODO(),
 //                navController = TODO(),
+                onNavigateToMovieDetailScreen = onNavigateToMovieDetailScreen,
             )
         }
     }

@@ -24,7 +24,7 @@ fun MovieDetailScreen (
     viewModel: MovieViewModel,
 ){
     Log.d(TAG, "MovieDetailScreen: ${viewModel}")
-    Text("MovieDetailScreen ${movieId}")
+    Text("Movie Id: ${movieId}", style = MaterialTheme.typography.h2)
 //    val loading = viewModel.loading.value
 //    val movie = viewModel.movie.value
 //    val scaffoldState = rememberScaffoldState()
