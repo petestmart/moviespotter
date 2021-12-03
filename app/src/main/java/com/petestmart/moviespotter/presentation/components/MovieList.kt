@@ -32,8 +32,8 @@ fun MovieList(
     onNextPage: (MovieListEvent) -> Unit,
     selectedGenreId: Int?,
     scaffoldState: ScaffoldState,
-    snackbarController: SnackbarController,
-    navController: NavController,
+//    snackbarController: SnackbarController,
+//    navController: NavController,
 ) {
     Box(
         modifier = Modifier
@@ -64,15 +64,15 @@ fun MovieList(
                             if(movie.id != null){
                                 val bundle = Bundle ()
                                 bundle.putInt("movieId", movie.id)
-                                navController.navigate(R.id.viewMovie, bundle)
+//                                navController.navigate(TODO(), bundle)
                             } else {
-                                snackbarController.getScope().launch {
-                                    snackbarController.showSnackbar(
-                                        scaffoldState = scaffoldState,
-                                        message = "Movie Error",
-                                        actionLabel = "Ok",
-                                    )
-                                }
+//                                snackbarController.getScope().launch {
+//                                    snackbarController.showSnackbar(
+//                                        scaffoldState = scaffoldState,
+//                                        message = "Movie Error",
+//                                        actionLabel = "Ok",
+//                                    )
+//                                }
                             }
                         }
                     )
