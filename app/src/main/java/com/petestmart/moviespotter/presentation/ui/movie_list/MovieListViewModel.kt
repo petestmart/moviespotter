@@ -32,11 +32,9 @@ const val STATE_KEY_SELECTED_CATEGORY = "movie.state.query.select_category"
 @HiltViewModel
 class MovieListViewModel
 @Inject
-//@AssistedInject
 constructor(
     private val repository: MovieRepository,
     @Named("api_key") private val token: String,
-//    @Assisted private val savedStateHandle: SavedStateHandle,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -253,12 +251,6 @@ constructor(
 
     fun onQueryChanged(query: String) {
         setQuery(query)
-//        if(query.contains("\n") ){
-//            query.replace("\n", "")
-////            newSearch()
-//            println("DEBUG-ONQUERYCHANGED")
-//        }
-//        this.query.value = query
     }
 
     fun onChangeCategoryPosition(
