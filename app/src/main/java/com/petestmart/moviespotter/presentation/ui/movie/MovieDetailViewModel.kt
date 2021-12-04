@@ -29,6 +29,7 @@ constructor(
 
     val movie: MutableState<Movie?> = mutableStateOf(null)
     val loading = mutableStateOf(false)
+    val onLoad: MutableState<Boolean> = mutableStateOf(false)
 
     init {
         // restore if process dies
