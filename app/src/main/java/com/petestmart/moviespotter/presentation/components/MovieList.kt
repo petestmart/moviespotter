@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.presentation.components.util.SnackbarController
+import com.petestmart.moviespotter.presentation.navigation.Screen
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent
 import com.petestmart.moviespotter.presentation.ui.movie_list.PAGE_SIZE
 import kotlinx.coroutines.launch
@@ -32,8 +33,9 @@ fun MovieList(
     onNextPage: (MovieListEvent) -> Unit,
     selectedGenreId: Int?,
     scaffoldState: ScaffoldState,
-    snackbarController: SnackbarController,
-    navController: NavController,
+//    snackbarController: SnackbarController,
+//    navController: NavController,
+    onNavigateToMovieDetailScreen: (String) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -64,15 +66,17 @@ fun MovieList(
                             if(movie.id != null){
                                 val bundle = Bundle ()
                                 bundle.putInt("movieId", movie.id)
-                                navController.navigate(R.id.viewMovie, bundle)
+                                val route = Screen.MovieDetail.route + "/${movie.id}"
+                                onNavigateToMovieDetailScreen(route)
+//                                navController.navigate(TODO(), bundle)
                             } else {
-                                snackbarController.getScope().launch {
-                                    snackbarController.showSnackbar(
-                                        scaffoldState = scaffoldState,
-                                        message = "Movie Error",
-                                        actionLabel = "Ok",
-                                    )
-                                }
+//                                snackbarController.getScope().launch {
+//                                    snackbarController.showSnackbar(
+//                                        scaffoldState = scaffoldState,
+//                                        message = "Movie Error",
+//                                        actionLabel = "Ok",
+//                                    )
+//                                }
                             }
                         }
                     )
