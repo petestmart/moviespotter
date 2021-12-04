@@ -19,7 +19,7 @@ import javax.inject.Named
 const val STATE_KEY_MOVIE = "movie.state.movie.key"
 
 @HiltViewModel
-class MovieViewModel
+class MovieDetailViewModel
 @Inject
 constructor(
     private val movieRepository: MovieRepository,
