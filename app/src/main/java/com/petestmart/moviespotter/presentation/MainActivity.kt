@@ -15,11 +15,10 @@ import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.petestmart.moviespotter.presentation.navigation.Screen
 import com.petestmart.moviespotter.presentation.ui.movie.MovieDetailScreen
-import com.petestmart.moviespotter.presentation.ui.movie.MovieViewModel
+import com.petestmart.moviespotter.presentation.ui.movie.MovieDetailViewModel
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListScreen
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @AndroidEntryPoint
 open class MainActivity : AppCompatActivity() {
@@ -53,12 +52,12 @@ open class MainActivity : AppCompatActivity() {
                 ) { navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
                     val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current)
-                    val viewModel: MovieViewModel =
+                    val detailViewModel: MovieDetailViewModel =
                         viewModel(viewModelStoreOwner, "MovieDetailViewModel", factory)
                     MovieDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
                         movieId = navBackStackEntry.arguments?.getInt("movieId"),
-                        viewModel = viewModel,
+                        detailViewModel = detailViewModel,
                     )
                 }
             }

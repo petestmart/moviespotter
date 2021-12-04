@@ -1,32 +1,20 @@
 package com.petestmart.moviespotter.presentation.ui.movie
 
 import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import com.petestmart.moviespotter.presentation.components.IMAGE_HEIGHT
-import com.petestmart.moviespotter.presentation.components.MovieView
-import com.petestmart.moviespotter.presentation.components.ShimmerMovieItem
-import com.petestmart.moviespotter.presentation.theme.AppTheme
-import com.petestmart.moviespotter.presentation.theme.Grey1
 import com.petestmart.moviespotter.util.TAG
 
 @Composable
 fun MovieDetailScreen (
     isDarkTheme: Boolean,
     movieId: Int?,
-    viewModel: MovieViewModel,
+    detailViewModel: MovieDetailViewModel,
 ){
-    Log.d(TAG, "MovieDetailScreen: ${viewModel}")
+    Log.d(TAG, "MovieDetailScreen: ${detailViewModel}")
     Text("Movie Id: ${movieId}", style = MaterialTheme.typography.h2)
-//    val loading = viewModel.loading.value
-//    val movie = viewModel.movie.value
+//    val loading = detailViewModel.loading.value
+//    val movie = detailViewModel.movie.value
 //    val scaffoldState = rememberScaffoldState()
 //    val darkTheme = application.isDark.value
 //
