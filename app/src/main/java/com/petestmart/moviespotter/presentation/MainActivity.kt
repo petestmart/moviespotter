@@ -52,12 +52,12 @@ open class MainActivity : AppCompatActivity() {
                 ) { navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
                     val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current)
-                    val detailViewModel: MovieDetailViewModel =
+                    val viewModel: MovieDetailViewModel =
                         viewModel(viewModelStoreOwner, "MovieDetailViewModel", factory)
                     MovieDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
                         movieId = navBackStackEntry.arguments?.getInt("movieId"),
-                        detailViewModel = detailViewModel,
+                        viewModel = viewModel,
                     )
                 }
             }
