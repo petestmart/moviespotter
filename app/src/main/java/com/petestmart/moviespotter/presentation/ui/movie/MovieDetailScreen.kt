@@ -1,7 +1,6 @@
 package com.petestmart.moviespotter.presentation.ui.movie
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,9 +14,10 @@ import androidx.compose.ui.unit.dp
 import com.petestmart.moviespotter.presentation.components.IMAGE_HEIGHT
 import com.petestmart.moviespotter.presentation.components.MovieView
 import com.petestmart.moviespotter.presentation.components.ShimmerMovieItem
+import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.theme.AppTheme
 import com.petestmart.moviespotter.presentation.theme.Grey1
-import com.petestmart.moviespotter.util.TAG
+import androidx.lifecycle.lifecycleScope
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -25,6 +25,7 @@ fun MovieDetailScreen(
     isDarkTheme: Boolean,
     movieId: Int?,
     viewModel: MovieDetailViewModel,
+    snackbarController: SnackbarController
 ) {
     if (movieId == null) {
         TODO("Show Invalid Movie")
@@ -38,10 +39,9 @@ fun MovieDetailScreen(
         val loading = viewModel.loading.value
         val movie = viewModel.movie.value
         val scaffoldState = rememberScaffoldState()
-        val darkTheme = isDarkTheme
 
         AppTheme(
-            darkTheme = darkTheme,
+            darkTheme = isDarkTheme,
             displayProgressBar = loading,
             scaffoldState = scaffoldState,
         ) {
@@ -54,7 +54,7 @@ fun MovieDetailScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(color = if (!darkTheme) Grey1 else Color.Black)
+                        .background(color = if (!isDarkTheme) Grey1 else Color.Black)
                 ) {
                     Surface(
                         shape = MaterialTheme.shapes.medium,
@@ -68,12 +68,11 @@ fun MovieDetailScreen(
                         } else {
                             movie?.let {
                                 if (it.id == null) {
-                                    TODO("Fix Snackbar")
-//                                    snackbarController.showSnackbar(
-//                                        scaffoldState = scaffoldState,
-//                                        message = "An error has occurred with this movie selection",
-//                                        actionLabel = "OK"
-//                                    )
+                                    snackbarController.showSnackbar(
+                                        scaffoldState = scaffoldState,
+                                        message = "An error has occurred with this movie selection",
+                                        actionLabel = "OK"
+                                    )
                                 } else {
                                     MovieView(movie = it)
                                 }
