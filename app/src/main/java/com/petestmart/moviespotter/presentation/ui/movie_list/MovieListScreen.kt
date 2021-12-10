@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.petestmart.moviespotter.presentation.components.LeftDrawer
 import com.petestmart.moviespotter.presentation.components.MovieList
 import com.petestmart.moviespotter.presentation.components.SearchAppBar
+import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.theme.AppTheme
 import com.petestmart.moviespotter.util.TAG
 
@@ -22,6 +23,7 @@ fun MovieListScreen(
     onToggleTheme: () -> Unit,
     onNavigateToMovieDetailScreen: (String) -> Unit,
     viewModel: MovieListViewModel,
+    snackbarController: SnackbarController,
 ) {
     Log.d(TAG, "MovieListScreen: ${viewModel}")
     val movies = viewModel.movies.value
@@ -54,7 +56,7 @@ fun MovieListScreen(
                     onToggleTheme = {
                         onToggleTheme()
                     },
-//                    snackbarController = TODO(),
+                    snackbarController = snackbarController,
                     scaffoldState = scaffoldState,
                 )
 
