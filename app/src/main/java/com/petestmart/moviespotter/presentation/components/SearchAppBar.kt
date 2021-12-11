@@ -46,7 +46,7 @@ fun SearchAppBar(
     newCategorySearch: KFunction1<Int?, Unit>,
     onToggleTheme: () -> Unit,
     scaffoldState: ScaffoldState,
-//    snackbarController: SnackbarController,
+    snackbarController: SnackbarController,
 
     ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -101,11 +101,11 @@ fun SearchAppBar(
                     maxLines = 1,
                     keyboardActions = KeyboardActions(onSearch = {
                         if (query == ""){
-//                            snackbarController.showSnackbar(
-//                                scaffoldState = scaffoldState,
-//                                message = "Enter a Search Term",
-//                                actionLabel = "OK"
-//                            )
+                            snackbarController.showSnackbar(
+                                scaffoldState = scaffoldState,
+                                message = "Enter a Search Term",
+                                actionLabel = "OK"
+                            )
                         } else {
                             onExecuteSearch()
                         }
