@@ -13,5 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-/moviespotter_assets
-/app/src/main/java/com/petestmart/moviespotter/util/Tokens.kt

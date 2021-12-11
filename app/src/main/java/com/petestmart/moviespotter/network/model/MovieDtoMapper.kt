@@ -12,10 +12,7 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
             overview = model.overview,
             posterPath = model.posterPath,
             releaseDate = model.releaseDate,
-            voteAverage = model.voteAverage,
-            runtime = model.runtime,
-            budget = model.budget,
-            status = model.status,
+            voteAverage = model.voteAverage
         )
     }
 
@@ -26,10 +23,7 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
             overview = domainModel.overview,
             posterPath = domainModel.posterPath,
             releaseDate = domainModel.releaseDate,
-            voteAverage = domainModel.voteAverage,
-            runtime = domainModel.runtime,
-            budget = domainModel.budget,
-            status = domainModel.status,
+            voteAverage = domainModel.voteAverage
         )
     }
 
