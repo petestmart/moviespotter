@@ -3,6 +3,7 @@ package com.petestmart.moviespotter.di
 import com.google.gson.GsonBuilder
 import com.petestmart.moviespotter.network.MovieService
 import com.petestmart.moviespotter.network.model.MovieDtoMapper
+import com.petestmart.moviespotter.util.TMDB_API_KEY
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
+//import process.env.TMDB_API_KEY
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -36,6 +38,6 @@ object NetworkModule {
     @Provides
     @Named("api_key")
     fun provideAuthToken(): String {
-        return "97585f2197f5b57abdcdc9c1b1994663"
+        return TMDB_API_KEY
     }
 }

@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
+import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.navigation.Screen
 import com.petestmart.moviespotter.presentation.ui.movie.MovieDetailScreen
 import com.petestmart.moviespotter.presentation.ui.movie.MovieDetailViewModel
@@ -41,6 +43,7 @@ open class MainActivity : AppCompatActivity() {
                         onToggleTheme = (application as BaseApplication)::toggleTheme,
                         viewModel = viewModel,
                         onNavigateToMovieDetailScreen = navController::navigate,
+                        snackbarController = SnackbarController(lifecycleScope),
                     )
                 }
 
@@ -58,6 +61,7 @@ open class MainActivity : AppCompatActivity() {
                         isDarkTheme = (application as BaseApplication).isDark.value,
                         movieId = navBackStackEntry.arguments?.getInt("movieId"),
                         viewModel = viewModel,
+                        snackbarController = SnackbarController(lifecycleScope),
                     )
                 }
             }

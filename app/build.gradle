@@ -240,6 +240,12 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
+    // Room
+    def room_version = '2.3.0'
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
     // runtime required to avoid crash on Android 12 API 31
     def runtime_ktx_version = '2.7.0'
     implementation "androidx.work:work-runtime-ktx:$runtime_ktx_version"
