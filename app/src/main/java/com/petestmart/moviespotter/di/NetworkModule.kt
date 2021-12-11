@@ -1,9 +1,9 @@
 package com.petestmart.moviespotter.di
 
 import com.google.gson.GsonBuilder
+import com.petestmart.moviespotter.BuildConfig
 import com.petestmart.moviespotter.network.MovieService
 import com.petestmart.moviespotter.network.model.MovieDtoMapper
-import com.petestmart.moviespotter.util.TMDB_API_KEY
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,6 +38,6 @@ object NetworkModule {
     @Provides
     @Named("api_key")
     fun provideAuthToken(): String {
-        return TMDB_API_KEY
+        return BuildConfig.TMDB_API_KEY
     }
 }
