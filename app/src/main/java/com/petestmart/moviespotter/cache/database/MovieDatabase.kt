@@ -8,7 +8,7 @@ import com.petestmart.moviespotter.cache.model.MovieEntity
 @Database(entities = [MovieEntity::class], version =1)
 abstract class MovieDatabase: RoomDatabase(){
 
-    abstract fun recipeDao(): MovieDao
+    abstract fun movieDao(): MovieDao
 
     companion object{
 
