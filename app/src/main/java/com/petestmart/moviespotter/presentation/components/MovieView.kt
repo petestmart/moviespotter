@@ -83,13 +83,14 @@ fun MovieView(
                                 .padding(bottom = 8.dp)
                         )
                         Column(){
-                            var unformattedReleaseDate = movie.releaseDate
-                            var parsedDate = LocalDate.parse(unformattedReleaseDate.toString())
-                            var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-
-                            val releaseDate = formatter.format(parsedDate)
+//                            var unformattedReleaseDate = movie.releaseDate
+//                            var parsedDate = LocalDate.parse(unformattedReleaseDate.toString())
+//                            var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+//
+//                            val releaseDate = formatter.format(parsedDate)
+                            val releaseDate = movie.releaseDate
                             val runtime = movie.runtime.toString()
-                            val status = movie.status.toString()
+                            val status = movie.status
                             Text(
                                 text =
                                     "Release Date: $releaseDate",

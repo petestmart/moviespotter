@@ -1,36 +1,37 @@
 package com.petestmart.moviespotter.network.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class MovieDto(
 
     @SerializedName("id")
-    var id: Int? = null,
+    var id: Int,
 
     @SerializedName("title")
-    var title: String? = null,
+    var title: String,
 
     @SerializedName("tagline")
-    var tagline: String? = null,
+    var tagline: String,
 
     @SerializedName("overview")
-    var overview: String? = null,
+    var overview: String,
 
     @SerializedName("poster_path")
-    var posterPath: String? = null,
+    var posterPath: String,
 
     @SerializedName("release_date")
-    var releaseDate: String? = null,
+    var releaseDate: String,
 
     @SerializedName("vote_average")
-    var voteAverage: Double? = null,
+    var voteAverage: Double,
 
     @SerializedName("runtime")
-    var runtime: Int? = null,
+    var runtime: Int,
 
     @SerializedName("budget")
-    var budget: Int? = null,
+    var budget: Int,
 
     @SerializedName("status")
-    var status: String? = null,
+    var status: String,
 )

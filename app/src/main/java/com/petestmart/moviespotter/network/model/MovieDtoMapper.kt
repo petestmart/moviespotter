@@ -2,6 +2,7 @@ package com.petestmart.moviespotter.network.model
 
 import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.domain.util.DomainMapper
+import com.petestmart.moviespotter.util.DateUtils
 
 class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
 
@@ -9,9 +10,10 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
         return Movie(
             id = model.id,
             title = model.title,
+            tagline = model.tagline,
             overview = model.overview,
             posterPath = model.posterPath,
-            releaseDate = model.releaseDate,
+            releaseDate = DateUtils.stringToDate(model.releaseDate),
             voteAverage = model.voteAverage,
             runtime = model.runtime,
             budget = model.budget,
@@ -23,9 +25,10 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
         return MovieDto(
             id = domainModel.id,
             title = domainModel.title,
+            tagline = domainModel.tagline,
             overview = domainModel.overview,
             posterPath = domainModel.posterPath,
-            releaseDate = domainModel.releaseDate,
+            releaseDate = DateUtils.dateToString(domainModel.releaseDate),
             voteAverage = domainModel.voteAverage,
             runtime = domainModel.runtime,
             budget = domainModel.budget,
