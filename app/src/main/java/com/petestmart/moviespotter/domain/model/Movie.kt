@@ -1,14 +1,16 @@
 package com.petestmart.moviespotter.domain.model
 
+import java.util.*
+
 data class Movie (
-    val id: Int? = null,
-    val title: String? = null,
-    val tagline: String? = null,
-    val overview: String? = null,
-    val posterPath: String? = null,
-    val releaseDate: String? = null,
-    val voteAverage: Double? = null,
-    val runtime: Int? = null,
-    val budget: Int? = null,
-    val status: String? = null,
+    val id: Int,
+    val title: String,
+    val tagline: String,
+    val overview: String,
+    val posterPath: String,
+    val releaseDate: Date,
+    val voteAverage: Double,
+    val runtime: Int,
+    val budget: Int,
+    val status: String,
 )
