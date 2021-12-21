@@ -3,6 +3,7 @@ package com.petestmart.moviespotter.cache.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "movies")
 data class MovieEntity(
@@ -27,13 +28,19 @@ data class MovieEntity(
     var posterPath: String,
 
     @ColumnInfo(name = "release_date")
-    var releaseDate: Long,
+    var releaseDate: Date,
 
     @ColumnInfo(name = "vote_average")
     var voteAverage: Double,
 
     @ColumnInfo(name = "runtime")
     var runtime: Int,
+
+    @ColumnInfo(name = "budget")
+    var budget: Int,
+
+    @ColumnInfo(name = "status")
+    var status: String,
 
     @ColumnInfo(name = "date_added")
     var dateAdded: Long,
@@ -43,4 +50,9 @@ data class MovieEntity(
 
     @ColumnInfo(name = "date_refreshed")
     var dateRefreshed: Long,
+
+//    Example of list
+//    SQL doesn't use list. Convert to comma separated strings
+//    @ColumnInfo(name = "ex_list_of_things")
+//    var list: String = "",
 )
