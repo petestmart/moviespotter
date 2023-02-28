@@ -65,7 +65,7 @@ fun MovieListScreen(
 //                            BottomNavBar()
 //                        },
             drawerContent = {
-                LeftDrawer()
+                LeftDrawer(onToggleTheme)
             },
             scaffoldState = scaffoldState,
             snackbarHost = {

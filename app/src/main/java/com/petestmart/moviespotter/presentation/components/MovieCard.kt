@@ -50,7 +50,7 @@ fun MovieCard(
         ) {
 
             if (movie.posterPath != null) {
-                movie.posterPath?.let { url ->
+                movie.posterPath.let { url ->
                     val image = loadPicture(url = url, defaultImage = DEFAULT_MOVIE_IMAGE).value
                     image?.let { img ->
                         Image(
