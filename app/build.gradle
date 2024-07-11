@@ -10,11 +10,11 @@ plugins {
 
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 6
-def versionBuild = 6 // Bump for dogfood builds, public betas, etc.
+def versionPatch = 9
+def versionBuild = 0 // Bump for dogfood builds, public betas, etc.
 
 android {
-    compileSdk 31
+    compileSdk 34
 
     useLibrary('android.test.runner')
     useLibrary('android.test.base')
@@ -22,8 +22,8 @@ android {
 
     defaultConfig {
         applicationId 'com.petestmart.moviespotter'
-        minSdk 21
-        targetSdk 31
+        minSdk 27
+        targetSdk 34
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
