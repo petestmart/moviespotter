@@ -14,7 +14,7 @@ def versionPatch = 7
 def versionBuild = 7 // Bump for dogfood builds, public betas, etc.
 
 android {
-    compileSdk 31
+    compileSdk 34
 
     useLibrary('android.test.runner')
     useLibrary('android.test.base')
@@ -22,8 +22,8 @@ android {
 
     defaultConfig {
         applicationId 'com.petestmart.moviespotter'
-        minSdk 21
-        targetSdk 31
+        minSdk 27
+        targetSdk 34
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
