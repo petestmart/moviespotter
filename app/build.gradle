@@ -10,8 +10,8 @@ plugins {
 
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 7
-def versionBuild = 7 // Bump for dogfood builds, public betas, etc.
+def versionPatch = 9
+def versionBuild = 0 // Bump for dogfood builds, public betas, etc.
 
 android {
     compileSdk 34
