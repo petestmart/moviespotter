@@ -1,11 +1,12 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'org.jetbrains.kotlin.android.extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
-    id 'com.google.secrets_gradle_plugin' version '0.4'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 def versionMajor = 1
@@ -14,6 +15,8 @@ def versionPatch = 9
 def versionBuild = 0 // Bump for dogfood builds, public betas, etc.
 
 android {
+    namespace 'com.petestmart.moviespotter'
+
     compileSdk 34
 
     useLibrary('android.test.runner')
@@ -43,21 +46,21 @@ android {
     buildFeatures {
         viewBinding = true
         compose true
+        buildConfig true
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     composeOptions {
-        kotlinCompilerExtensionVersion "$compose_version"
-        kotlinCompilerVersion "$kotlin_version"
+        kotlinCompilerExtensionVersion "$compose_compiler_version"
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    tasks.withType(KotlinCompile).configureEach {
         kotlinOptions {
-            jvmTarget = '1.8'
+            jvmTarget = '17'
         }
     }
     packagingOptions {
@@ -127,7 +130,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$app_compat_version"
 
     // coil
-    def coil_version = '1.3.1'
+    def coil_version = '2.6.0'
     implementation "io.coil-kt:coil-compose:$coil_version"
 
     // Compose Test (defined in project gradle)
@@ -166,18 +169,14 @@ dependencies {
     // Glide
     def glide_version = '4.11.0'
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     // Hilt (defined in project gradle)
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-    // Hilt Lifecycle Viewmodel
-    def hilt_lifecycle_viewmodel_version = '1.0.0-alpha03'
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_viewmodel_version"
-
     // Hilt Navigation (Different Version than Hilt)
-    def hilt_navigation_version = '1.0.0-alpha03'
+    def hilt_navigation_version = '1.2.0'
     implementation "androidx.hilt:hilt-navigation-fragment:$hilt_navigation_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_navigation_version"
     implementation "androidx.hilt:hilt-work:$hilt_navigation_version"
@@ -192,7 +191,7 @@ dependencies {
 
     // Lifecycle (defined in project gradle)
     def lifecycle_version = "2.4.0"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     // Lifecycle Extensions
@@ -242,9 +241,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Room
-    def room_version = '2.3.0'
+    def room_version = '2.6.1'
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
     // runtime required to avoid crash on Android 12 API 31
