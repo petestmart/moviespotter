@@ -14,8 +14,8 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.petestmart.moviespotter.R
 
-const val DEFAULT_MOVIE_IMAGE = R.drawable.movie_placeholder
-const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
+val DEFAULT_MOVIE_IMAGE = R.drawable.movie_placeholder
+val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
 
 @Composable
 fun loadPicture(

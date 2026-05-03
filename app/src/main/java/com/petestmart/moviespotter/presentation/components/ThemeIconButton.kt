@@ -11,8 +11,8 @@ import androidx.compose.ui.res.painterResource
 import com.petestmart.moviespotter.R
 import kotlinx.coroutines.NonDisposableHandle.parent
 
-const val DARK_THEME_ICON = R.drawable.ic_baseline_dark_mode_24
-const val LIGHT_THEME_ICON = R.drawable.baseline_light_mode_24
+val DARK_THEME_ICON = R.drawable.ic_baseline_dark_mode_24
+val LIGHT_THEME_ICON = R.drawable.baseline_light_mode_24
 
 @Composable
 fun ThemeIconButton(
