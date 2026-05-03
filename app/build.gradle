@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'org.jetbrains.kotlin.plugin.compose'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
@@ -51,9 +52,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion "$compose_compiler_version"
     }
     kotlinOptions {
         jvmTarget = '17'
@@ -151,11 +149,13 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     // Firebase & Firebase Libraries
-    def firebase_bom_version = '29.0.0'
+    def firebase_bom_version = '33.13.0'
     implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
 
     // Firebase Libraries (do not require version)
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 //    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     // Google Truth
@@ -231,9 +231,9 @@ dependencies {
     def okio_version = '1.6.0'
     implementation "com.squareup.okio:okio:$okio_version"
 
-    // Play Core Library
-    def playcore_version = '1.7.2'
-    implementation "com.google.android.play:core:$playcore_version"
+   // Play Kotlin Extension
+    def app_update_ktx_version = '2.1.0'
+    implementation "com.google.android.play:app-update-ktx:$app_update_ktx_version"
 
     // Retrofit
     def retrofit_version = '2.7.0'
@@ -241,7 +241,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Room
-    def room_version = '2.6.1'
+    def room_version = '2.7.0'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
