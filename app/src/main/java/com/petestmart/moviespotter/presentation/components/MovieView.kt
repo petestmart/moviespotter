@@ -1,9 +1,11 @@
 package com.petestmart.moviespotter.presentation.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
@@ -11,20 +13,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.petestmart.moviespotter.domain.model.Movie
 import com.petestmart.moviespotter.util.DEFAULT_MOVIE_IMAGE
-import com.petestmart.moviespotter.util.loadPicture
+import com.petestmart.moviespotter.util.POSTER_BASE_URL
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 const val IMAGE_HEIGHT = 260
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MovieView(
     movie: Movie,
@@ -35,31 +37,20 @@ fun MovieView(
             .fillMaxWidth()
             .verticalScroll(scrollState)
     ) {
-        if (movie.posterPath != null) {
-            movie.posterPath?.let { url ->
-                val image = loadPicture(url = url, defaultImage = DEFAULT_MOVIE_IMAGE).value
-                image?.let { img ->
-                    Image(
-                        bitmap = img.asImageBitmap(),
-                        contentDescription = "Movie Poster",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(IMAGE_HEIGHT.dp),
-                        contentScale = ContentScale.Fit
-                    )
-                }
-            }
-        } else {
-            val image: Painter = painterResource(id = DEFAULT_MOVIE_IMAGE)
-            Image(
-                painter = image,
-                contentDescription = "Film Projector",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(IMAGE_HEIGHT.dp),
-                contentScale = ContentScale.Crop
-            )
-        }
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(POSTER_BASE_URL + movie.posterPath)
+                .crossfade(true)
+                .build(),
+            contentDescription = "Movie Poster",
+            placeholder = painterResource(DEFAULT_MOVIE_IMAGE),
+            error = painterResource(DEFAULT_MOVIE_IMAGE),
+            fallback = painterResource(DEFAULT_MOVIE_IMAGE),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IMAGE_HEIGHT.dp),
+            contentScale = ContentScale.Fit
+        )
         Column(
             modifier = Modifier
                 .fillMaxWidth()

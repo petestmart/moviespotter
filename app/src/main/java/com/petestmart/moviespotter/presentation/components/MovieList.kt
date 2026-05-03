@@ -11,17 +11,12 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.petestmart.moviespotter.R
 import com.petestmart.moviespotter.domain.model.Movie
-import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.navigation.Screen
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListEvent
 import com.petestmart.moviespotter.presentation.ui.movie_list.PAGE_SIZE
-import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
