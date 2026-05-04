@@ -4,7 +4,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'org.jetbrains.kotlin.plugin.compose'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
@@ -18,7 +18,7 @@ def versionBuild = 0 // Bump for dogfood builds, public betas, etc.
 android {
     namespace 'com.petestmart.moviespotter'
 
-    compileSdk 34
+    compileSdk 35
 
     useLibrary('android.test.runner')
     useLibrary('android.test.base')
@@ -69,6 +69,9 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
+    ksp {
+        arg("dagger.hilt.android.internal.disableAndroidSuperclassValidation", "true")
+    }
 
     bundle {
         density {
@@ -89,12 +92,14 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose-android:2.10.0'
+
     // Activity Compose
-    def activity_compose_version = '1.3.1'
+    def activity_compose_version = '1.9.0'
     implementation "androidx.activity:activity-compose:$activity_compose_version"
 
     // androidx.activity
-    def activity_version = '1.4.0'
+    def activity_version = '1.9.0'
     implementation "androidx.activity:activity-ktx:$activity_version"
 
     // androidx.constraintlayout
@@ -118,10 +123,6 @@ dependencies {
     // androidx.test junit-ktx
     def junit_ktx_version = '1.1.3'
     androidTestImplementation "androidx.test.ext:junit-ktx:$junit_ktx_version"
-
-    // androidx.ui foundation
-    def ui_foundation_version = '0.1.0-dev03'
-    implementation "androidx.ui:ui-foundation:$ui_foundation_version"
 
     // app compat
     def app_compat_version = '1.3.1'
@@ -169,16 +170,17 @@ dependencies {
     // Glide
     def glide_version = '4.11.0'
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    ksp "com.github.bumptech.glide:compiler:$glide_version"
 
     // Hilt (defined in project gradle)
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    ksp "com.google.dagger:hilt-compiler:$hilt_version"
 
     // Hilt Navigation (Different Version than Hilt)
     def hilt_navigation_version = '1.2.0'
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
     implementation "androidx.hilt:hilt-navigation-fragment:$hilt_navigation_version"
-    kapt "androidx.hilt:hilt-compiler:$hilt_navigation_version"
+    ksp "androidx.hilt:hilt-compiler:$hilt_navigation_version"
     implementation "androidx.hilt:hilt-work:$hilt_navigation_version"
 
     // junit
@@ -191,7 +193,7 @@ dependencies {
 
     // Lifecycle (defined in project gradle)
     def lifecycle_version = "2.4.0"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    ksp "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     // Lifecycle Extensions
@@ -204,12 +206,17 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Navigation Compose
-    def nav_compose_version = '2.4.0-beta02'
+    def nav_compose_version = '2.7.7'
     implementation "androidx.navigation:navigation-compose:$nav_compose_version"
 
     // Material
     def material_version = '1.4.0'
     implementation "com.google.android.material:material:$material_version"
+
+    // Material Icons - use a fixed version, not compose_version
+    def material_icons_version = '1.6.8'
+    implementation "androidx.compose.material:material-icons-core:$material_icons_version"
+    implementation "androidx.compose.material:material-icons-extended:$material_icons_version"
 
     // mockito
     def mockito_version = '1.10.19'
@@ -243,7 +250,7 @@ dependencies {
     // Room
     def room_version = '2.7.0'
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
     // runtime required to avoid crash on Android 12 API 31
