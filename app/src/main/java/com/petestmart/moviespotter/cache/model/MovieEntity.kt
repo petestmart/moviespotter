@@ -43,4 +43,16 @@ data class MovieEntity(
 
     @ColumnInfo(name = "date_refreshed")
     var dateRefreshed: Long,
+
+    @ColumnInfo(name = "is_saved")
+    var isSaved: Boolean = false,
+
+    @ColumnInfo(name = "is_watched")
+    var isWatched: Boolean = false,
+
+    @ColumnInfo(name = "saved_at")
+    var savedAt: Long? = null,
+
+    @ColumnInfo(name = "watched_at")
+    var watchedAt: Long? = null,
 )

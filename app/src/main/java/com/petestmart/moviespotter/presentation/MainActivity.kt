@@ -23,6 +23,7 @@ import com.petestmart.moviespotter.presentation.ui.movie.MovieDetailScreen
 import com.petestmart.moviespotter.presentation.ui.movie.MovieDetailViewModel
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListScreen
 import com.petestmart.moviespotter.presentation.ui.movie_list.MovieListViewModel
+import com.petestmart.moviespotter.presentation.ui.watchlist.WatchlistScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -80,6 +81,9 @@ open class MainActivity : AppCompatActivity() {
                         viewModel = viewModel,
                         onNavigateToMovieDetailScreen = navController::navigate,
                         snackbarController = SnackbarController(lifecycleScope),
+                        onNavigateToWatchlist = {
+                            navController.navigate(Screen.Watchlist.route)
+                        },
                     )
                 }
 
@@ -98,6 +102,13 @@ open class MainActivity : AppCompatActivity() {
                         movieId = navBackStackEntry.arguments?.getInt("movieId"),
                         viewModel = viewModel,
                         snackbarController = SnackbarController(lifecycleScope),
+                    )
+                }
+
+                composable(route = Screen.Watchlist.route) {
+                    WatchlistScreen(
+                        isDarkTheme = (application as BaseApplication).isDark.value,
+                        onNavigateToMovieDetailScreen = navController::navigate,
                     )
                 }
             }

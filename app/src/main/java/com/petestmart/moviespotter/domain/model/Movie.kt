@@ -1,6 +1,6 @@
 package com.petestmart.moviespotter.domain.model
 
-data class Movie (
+data class Movie(
     val id: Int? = null,
     val title: String? = null,
     val tagline: String? = null,
@@ -11,4 +11,8 @@ data class Movie (
     val runtime: Int? = null,
     val budget: Int? = null,
     val status: String? = null,
+    val isSaved: Boolean = false,
+    val isWatched: Boolean = false,
+    val savedAt: Long? = null,
+    val watchedAt: Long? = null,
 )
