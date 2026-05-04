@@ -1,11 +1,13 @@
 package com.petestmart.moviespotter.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.petestmart.moviespotter.cache.MovieDao
 import com.petestmart.moviespotter.cache.model.MovieEntityMapper
 import com.petestmart.moviespotter.domain.model.Movie
+import com.petestmart.moviespotter.util.TAG
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
@@ -33,15 +35,24 @@ class WatchlistRepository_Impl @Inject constructor(
     }
 
     override suspend fun toggleSaved(movie: Movie) {
+        Log.d(TAG, "toggleSaved: called for movie ${movie.id} - ${movie.title}")
         val newSaved = !movie.isSaved
         val timestamp = if (newSaved) System.currentTimeMillis() else null
 
-        // Write to Room immediately (offline-first)
+        // Ensure movie exists in Room before updating
+        val existing = movieDao.getMovieById(movie.id ?: return)
+        Log.d(TAG, "toggleSaved: existing in Room = $existing")
+        if (existing == null) {
+            Log.d(TAG, "toggleSaved: inserting movie into Room")
+            movieDao.insertMovie(mapper.mapFromDomainModel(movie))
+        }
+
         movieDao.updateSaved(
-            movieId = movie.id ?: return,
+            movieId = movie.id,
             saved = newSaved,
             timestamp = timestamp
         )
+        Log.d(TAG, "toggleSaved: Room updated, isSaved = $newSaved")
 
         // Sync to Firestore
         userId?.let { uid ->
@@ -56,19 +67,29 @@ class WatchlistRepository_Impl @Inject constructor(
                     ),
                     SetOptions.merge()
                 )
+            Log.d(TAG, "toggleSaved: Firestore updated")
         }
     }
 
     override suspend fun toggleWatched(movie: Movie) {
+        Log.d(TAG, "toggleWatched: called for movie ${movie.id} - ${movie.title}")
         val newWatched = !movie.isWatched
         val timestamp = if (newWatched) System.currentTimeMillis() else null
 
-        // Write to Room immediately (offline-first)
+        // Ensure movie exists in Room before updating
+        val existing = movieDao.getMovieById(movie.id ?: return)
+        Log.d(TAG, "toggleWatched: existing in Room = $existing")
+        if (existing == null) {
+            Log.d(TAG, "toggleWatched: inserting movie into Room")
+            movieDao.insertMovie(mapper.mapFromDomainModel(movie))
+        }
+
         movieDao.updateWatched(
-            movieId = movie.id ?: return,
+            movieId = movie.id,
             watched = newWatched,
             timestamp = timestamp
         )
+        Log.d(TAG, "toggleWatched: Room updated, isWatched = $newWatched")
 
         // Sync to Firestore
         userId?.let { uid ->
@@ -81,6 +102,7 @@ class WatchlistRepository_Impl @Inject constructor(
                     ),
                     SetOptions.merge()
                 )
+            Log.d(TAG, "toggleWatched: Firestore updated")
         }
     }
 

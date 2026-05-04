@@ -68,6 +68,7 @@ class WatchlistViewModel @Inject constructor(
     }
 
     private suspend fun toggleSaved(movie: Movie) {
+        Log.d(TAG, "WatchlistViewModel toggleSaved: called for ${movie.title}")
         loading.value = true
         watchlistRepository.toggleSaved(movie)
         loading.value = false

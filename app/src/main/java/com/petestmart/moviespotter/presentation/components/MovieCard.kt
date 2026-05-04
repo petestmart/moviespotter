@@ -33,6 +33,8 @@ import com.petestmart.moviespotter.util.DEFAULT_MOVIE_IMAGE
 import com.petestmart.moviespotter.util.POSTER_BASE_URL
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import android.util.Log
+import com.petestmart.moviespotter.util.TAG
 
 @Composable
 fun MovieCard(
@@ -105,62 +107,65 @@ fun MovieCard(
                     }
 
                     // Watchlist action buttons
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        IconButton(onClick = { onToggleSaved(movie) }) {
-                            Icon(
-                                imageVector = if (movie.isSaved)
-                                    Icons.Filled.Bookmark
-                                else
-                                    Icons.Outlined.BookmarkBorder,
-                                contentDescription = if (movie.isSaved)
-                                    "Remove from watchlist"
-                                else
-                                    "Save to watchlist",
-                                tint = if (movie.isSaved)
-                                    MaterialTheme.colors.primary
-                                else
-                                    LocalContentColor.current
-                            )
+                    Column() {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            IconButton(onClick = { onToggleSaved(movie) }) {
+                                Icon(
+                                    imageVector = if (movie.isSaved)
+                                        Icons.Filled.Bookmark
+                                    else
+                                        Icons.Outlined.BookmarkBorder,
+                                    contentDescription = if (movie.isSaved)
+                                        "Remove from watchlist"
+                                    else
+                                        "Save to watchlist",
+                                    tint = if (movie.isSaved)
+                                        MaterialTheme.colors.primary
+                                    else
+                                        LocalContentColor.current
+                                )
+                            }
+                            IconButton(onClick = { onToggleWatched(movie) }) {
+                                Log.d(TAG, "MovieCard: bookmark clicked for ${movie.title}")
+                                Icon(
+                                    imageVector = if (movie.isWatched)
+                                        Icons.Filled.CheckCircle
+                                    else
+                                        Icons.Outlined.CheckCircleOutline,
+                                    contentDescription = if (movie.isWatched)
+                                        "Mark as unwatched"
+                                    else
+                                        "Mark as watched",
+                                    tint = if (movie.isWatched)
+                                        Color.Green
+                                    else
+                                        LocalContentColor.current
+                                )
+                            }
                         }
-                        IconButton(onClick = { onToggleWatched(movie) }) {
-                            Icon(
-                                imageVector = if (movie.isWatched)
-                                    Icons.Filled.CheckCircle
-                                else
-                                    Icons.Outlined.CheckCircleOutline,
-                                contentDescription = if (movie.isWatched)
-                                    "Mark as unwatched"
-                                else
-                                    "Mark as watched",
-                                tint = if (movie.isWatched)
-                                    Color.Green
-                                else
-                                    LocalContentColor.current
-                            )
-                        }
-                    }
 
-                    // User score
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.End)
-                            .padding(top = 12.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(
-                            text = movie.voteAverage.toString(),
-                            style = MaterialTheme.typography.body2,
-                        )
-                        Text(
-                            text = "User Score",
-                            style = MaterialTheme.typography.h6,
-                        )
+                        // User score
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(Alignment.End)
+                                .padding(top = 12.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Text(
+                                text = movie.voteAverage.toString(),
+                                style = MaterialTheme.typography.body2,
+                            )
+                            Text(
+                                text = "User Score",
+                                style = MaterialTheme.typography.h6,
+                            )
+                        }
                     }
                 }
             }

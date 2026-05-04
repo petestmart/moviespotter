@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.petestmart.moviespotter.presentation.components.LeftDrawer
@@ -37,6 +38,12 @@ fun MovieListScreen(
     val loading = viewModel.loading.value
     val page = viewModel.page.value
     val scaffoldState = rememberScaffoldState()
+    val savedMovies = watchlistViewModel.savedMovies.value
+    val watchedMovies = watchlistViewModel.watchedMovies.value
+
+    LaunchedEffect(savedMovies, watchedMovies) {
+        viewModel.syncWatchlistState(savedMovies, watchedMovies)
+    }
 
     AppTheme(
         darkTheme = isDarkTheme,

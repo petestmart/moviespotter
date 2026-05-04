@@ -92,6 +92,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.compose.runtime:runtime:1.11.0'
+
     // Activity Compose
     def activity_compose_version = '1.10.0'
     implementation "androidx.activity:activity-compose:$activity_compose_version"

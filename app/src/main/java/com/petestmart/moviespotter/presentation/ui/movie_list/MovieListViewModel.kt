@@ -129,6 +129,17 @@ constructor(
         }
     }
 
+    fun syncWatchlistState(savedMovies: List<Movie>, watchedMovies: List<Movie>) {
+        val savedIds = savedMovies.map { it.id }.toSet()
+        val watchedIds = watchedMovies.map { it.id }.toSet()
+        movies.value = movies.value.map { movie ->
+            movie.copy(
+                isSaved = movie.id in savedIds,
+                isWatched = movie.id in watchedIds
+            )
+        }
+    }
+
     private suspend fun newSearch() {
         loading.value = true
         resetSearchState()
