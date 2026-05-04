@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.petestmart.moviespotter.cache.MovieDao
 import com.petestmart.moviespotter.cache.model.MovieEntity
 
-@Database(entities = [MovieEntity::class], version =1)
+@Database(entities = [MovieEntity::class], version =2)
 abstract class MovieDatabase: RoomDatabase(){
 
     abstract fun movieDao(): MovieDao

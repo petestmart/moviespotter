@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.petestmart.moviespotter.cache.model.MovieEntity
 import com.petestmart.moviespotter.util.MOVIE_PAGINATION_PAGE_SIZE
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
@@ -83,4 +84,20 @@ interface MovieDao {
         page: Int,
         pageSize: Int = MOVIE_PAGINATION_PAGE_SIZE
     ): List<MovieEntity>
+
+    /**
+     * Watchlist queries
+     */
+
+    @Query("SELECT * FROM movies WHERE is_saved = 1 ORDER BY saved_at DESC")
+    fun getSavedMovies(): Flow<List<MovieEntity>>
+
+    @Query("SELECT * FROM movies WHERE is_watched = 1 ORDER BY watched_at DESC")
+    fun getWatchedMovies(): Flow<List<MovieEntity>>
+
+    @Query("UPDATE movies SET is_saved = :saved, saved_at = :timestamp WHERE id = :movieId")
+    suspend fun updateSaved(movieId: Int, saved: Boolean, timestamp: Long?)
+
+    @Query("UPDATE movies SET is_watched = :watched, watched_at = :timestamp WHERE id = :movieId")
+    suspend fun updateWatched(movieId: Int, watched: Boolean, timestamp: Long?)
 }

@@ -3,3 +3,4 @@ app/release/
 app/debug/
 *.aab
 *.apk
+*.idea

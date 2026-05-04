@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -28,16 +30,17 @@ fun MovieList(
     onNextPage: (MovieListEvent) -> Unit,
     selectedGenreId: Int?,
     scaffoldState: ScaffoldState,
-//    snackbarController: SnackbarController,
-//    navController: NavController,
     onNavigateToMovieDetailScreen: (String) -> Unit,
+    onToggleSaved: (Movie) -> Unit,
+    onToggleWatched: (Movie) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background)
+            .padding(contentPadding)
     ) {
-
         if (loading && movies.isEmpty()) {
             ShimmerMovieCardItem(
                 imageHeight = 450.dp, padding = 8.dp
@@ -58,22 +61,15 @@ fun MovieList(
                     MovieCard(
                         movie = movie,
                         onClick = {
-                            if(movie.id != null){
-                                val bundle = Bundle ()
+                            if (movie.id != null) {
+                                val bundle = Bundle()
                                 bundle.putInt("movieId", movie.id)
                                 val route = Screen.MovieDetail.route + "/${movie.id}"
                                 onNavigateToMovieDetailScreen(route)
-//                                navController.navigate(TODO(), bundle)
-                            } else {
-//                                snackbarController.getScope().launch {
-//                                    snackbarController.showSnackbar(
-//                                        scaffoldState = scaffoldState,
-//                                        message = "Movie Error",
-//                                        actionLabel = "Ok",
-//                                    )
-//                                }
                             }
-                        }
+                        },
+                        onToggleSaved = onToggleSaved,
+                        onToggleWatched = onToggleWatched,
                     )
                 }
             }

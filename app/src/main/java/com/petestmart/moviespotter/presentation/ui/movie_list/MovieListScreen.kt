@@ -6,13 +6,16 @@ import androidx.annotation.RequiresApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.navigation.findNavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.petestmart.moviespotter.presentation.components.LeftDrawer
 import com.petestmart.moviespotter.presentation.components.MovieList
 import com.petestmart.moviespotter.presentation.components.SearchAppBar
 import com.petestmart.moviespotter.presentation.components.util.SnackbarController
 import com.petestmart.moviespotter.presentation.theme.AppTheme
+import com.petestmart.moviespotter.presentation.ui.watchlist.WatchlistEvent
+import com.petestmart.moviespotter.presentation.ui.watchlist.WatchlistViewModel
 import com.petestmart.moviespotter.util.TAG
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -24,6 +27,8 @@ fun MovieListScreen(
     onNavigateToMovieDetailScreen: (String) -> Unit,
     viewModel: MovieListViewModel,
     snackbarController: SnackbarController,
+    watchlistViewModel: WatchlistViewModel = hiltViewModel(),
+    onNavigateToWatchlist: () -> Unit,
 ) {
     Log.d(TAG, "MovieListScreen: ${viewModel}")
     val movies = viewModel.movies.value
@@ -33,6 +38,12 @@ fun MovieListScreen(
     val loading = viewModel.loading.value
     val page = viewModel.page.value
     val scaffoldState = rememberScaffoldState()
+    val savedMovies = watchlistViewModel.savedMovies.value
+    val watchedMovies = watchlistViewModel.watchedMovies.value
+
+    LaunchedEffect(savedMovies, watchedMovies) {
+        viewModel.syncWatchlistState(savedMovies, watchedMovies)
+    }
 
     AppTheme(
         darkTheme = isDarkTheme,
@@ -59,19 +70,18 @@ fun MovieListScreen(
                     snackbarController = snackbarController,
                     scaffoldState = scaffoldState,
                 )
-
             },
-//                        bottomBar = {
-//                            BottomNavBar()
-//                        },
             drawerContent = {
-                LeftDrawer(onToggleTheme)
+                LeftDrawer(
+                    onToggleTheme = onToggleTheme,
+                    onNavigateToWatchlist = onNavigateToWatchlist,
+                )
             },
             scaffoldState = scaffoldState,
             snackbarHost = {
                 scaffoldState.snackbarHostState
             }
-        ) {
+        ) { paddingValues ->
             MovieList(
                 loading = loading,
                 movies = movies,
@@ -82,9 +92,14 @@ fun MovieListScreen(
                 },
                 selectedGenreId = selectedGenreId,
                 scaffoldState = scaffoldState,
-//                snackbarController = TODO(),
-//                navController = TODO(),
                 onNavigateToMovieDetailScreen = onNavigateToMovieDetailScreen,
+                onToggleSaved = { movie ->
+                    watchlistViewModel.onTriggerEvent(WatchlistEvent.ToggleSavedEvent(movie))
+                },
+                onToggleWatched = { movie ->
+                    watchlistViewModel.onTriggerEvent(WatchlistEvent.ToggleWatchedEvent(movie))
+                },
+                contentPadding = paddingValues,
             )
         }
     }

@@ -3,7 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'com.google.devtools.ksp'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
@@ -17,7 +18,7 @@ def versionBuild = 0 // Bump for dogfood builds, public betas, etc.
 android {
     namespace 'com.petestmart.moviespotter'
 
-    compileSdk 34
+    compileSdk 35
 
     useLibrary('android.test.runner')
     useLibrary('android.test.base')
@@ -52,9 +53,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion "$compose_compiler_version"
-    }
     kotlinOptions {
         jvmTarget = '17'
     }
@@ -70,6 +68,9 @@ android {
     }
     testOptions {
         unitTests.includeAndroidResources = true
+    }
+    ksp {
+        arg("dagger.hilt.android.internal.disableAndroidSuperclassValidation", "true")
     }
 
     bundle {
@@ -91,12 +92,14 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.compose.runtime:runtime:1.11.0'
+
     // Activity Compose
-    def activity_compose_version = '1.3.1'
+    def activity_compose_version = '1.10.0'
     implementation "androidx.activity:activity-compose:$activity_compose_version"
 
     // androidx.activity
-    def activity_version = '1.4.0'
+    def activity_version = '1.9.0'
     implementation "androidx.activity:activity-ktx:$activity_version"
 
     // androidx.constraintlayout
@@ -120,10 +123,6 @@ dependencies {
     // androidx.test junit-ktx
     def junit_ktx_version = '1.1.3'
     androidTestImplementation "androidx.test.ext:junit-ktx:$junit_ktx_version"
-
-    // androidx.ui foundation
-    def ui_foundation_version = '0.1.0-dev03'
-    implementation "androidx.ui:ui-foundation:$ui_foundation_version"
 
     // app compat
     def app_compat_version = '1.3.1'
@@ -151,11 +150,13 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     // Firebase & Firebase Libraries
-    def firebase_bom_version = '29.0.0'
+    def firebase_bom_version = '33.13.0'
     implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
 
     // Firebase Libraries (do not require version)
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 //    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     // Google Truth
@@ -169,16 +170,17 @@ dependencies {
     // Glide
     def glide_version = '4.11.0'
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    ksp "com.github.bumptech.glide:compiler:$glide_version"
 
     // Hilt (defined in project gradle)
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    ksp "com.google.dagger:hilt-compiler:$hilt_version"
 
     // Hilt Navigation (Different Version than Hilt)
     def hilt_navigation_version = '1.2.0'
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
     implementation "androidx.hilt:hilt-navigation-fragment:$hilt_navigation_version"
-    kapt "androidx.hilt:hilt-compiler:$hilt_navigation_version"
+    ksp "androidx.hilt:hilt-compiler:$hilt_navigation_version"
     implementation "androidx.hilt:hilt-work:$hilt_navigation_version"
 
     // junit
@@ -189,10 +191,11 @@ dependencies {
     def junit_ext_version = '1.1.3'
     androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
 
-    // Lifecycle (defined in project gradle)
-    def lifecycle_version = "2.4.0"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    // Lifecycle
+    def lifecycle_version = "2.10.0"
+    ksp "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose-android:$lifecycle_version"
 
     // Lifecycle Extensions
     def lifecycle_extensions_version = '2.2.0-rc03'
@@ -204,12 +207,16 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Navigation Compose
-    def nav_compose_version = '2.4.0-beta02'
+    def nav_compose_version = '2.8.9'
     implementation "androidx.navigation:navigation-compose:$nav_compose_version"
 
     // Material
     def material_version = '1.4.0'
     implementation "com.google.android.material:material:$material_version"
+
+    // Material Icons - use a fixed version, not compose_version
+    implementation "androidx.compose.material:material-icons-core:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     // mockito
     def mockito_version = '1.10.19'
@@ -231,9 +238,9 @@ dependencies {
     def okio_version = '1.6.0'
     implementation "com.squareup.okio:okio:$okio_version"
 
-    // Play Core Library
-    def playcore_version = '1.7.2'
-    implementation "com.google.android.play:core:$playcore_version"
+   // Play Kotlin Extension
+    def app_update_ktx_version = '2.1.0'
+    implementation "com.google.android.play:app-update-ktx:$app_update_ktx_version"
 
     // Retrofit
     def retrofit_version = '2.7.0'
@@ -241,9 +248,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Room
-    def room_version = '2.6.1'
+    def room_version = '2.7.0'
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
     // runtime required to avoid crash on Android 12 API 31
