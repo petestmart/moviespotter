@@ -6,12 +6,11 @@ Save movies you want to watch later or mark them as watched!
 
 ![screenshot](public/images/moviespotter_screenshot2.0-resize.png)
 
-=======
-
 ## Technologies
 * Kotlin
 * Java
 * REST API from [The Movie Database](https://developers.themoviedb.org/3/)
+* Firebase
 * Retrofit2
 * OkHttp3
 * Glide
